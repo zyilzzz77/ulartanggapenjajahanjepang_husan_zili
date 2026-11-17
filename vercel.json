@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/ular_tangga_sejarah_pendudukan_jepang_1942_1945.html"
+    }
+  ]
+}

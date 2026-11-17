@@ -1,0 +1,3130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ular Tangga Sejarah: Masa Pendudukan Jepang di Indonesia (1942–1945)</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js"
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-parchment: #f6efe2;
+      --bg-parchment-dark: #e8dcc4;
+      --ink-dark: #231b14;
+      --ink-muted: #5c4b3b;
+      --crimson-main: #9e1b1b;
+      --crimson-dark: #6e1010;
+      --crimson-light: #fef2f2;
+      --gold-accent: #b45309;
+      --gold-bright: #d97706;
+      --gold-soft: #fef3c7;
+      --ladder-green: #15803d;
+      --ladder-bg: #dcfce7;
+      --ladder-border: #16a34a;
+      --snake-red: #b91c1c;
+      --snake-bg: #fee2e2;
+      --snake-border: #dc2626;
+      /* Zona Tahun Colors */
+      --zone-1942-bg: #f0fdf4;
+      --zone-1942-border: #86efac;
+      --zone-1942-badge: #166534;
+      --zone-1943-bg: #fffbeb;
+      --zone-1943-border: #fde047;
+      --zone-1943-badge: #92400e;
+      --zone-1944-bg: #fff7ed;
+      --zone-1944-border: #fdba74;
+      --zone-1944-badge: #9a3412;
+      --zone-1945-bg: #fef2f2;
+      --zone-1945-border: #fca5a5;
+      --zone-1945-badge: #991b1b;
+      --border-vintage: #bca686;
+      --shadow-card: 0 8px 24px rgba(35, 27, 20, 0.14);
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-parchment);
+      background-image: 
+        radial-gradient(rgba(180, 140, 90, 0.12) 1px, transparent 1px),
+        linear-gradient(180deg, #f8f2e7 0%, #ede0c8 100%);
+      background-size: 20px 20px, 100% 100%;
+      color: var(--ink-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .app-header {
+      background: linear-gradient(90deg, var(--crimson-dark) 0%, var(--crimson-main) 50%, var(--crimson-dark) 100%);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 4px solid #e2c792;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .flag-emblem {
+      width: 44px;
+      height: 32px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid #facc15;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .flag-emblem .red { background: #dc2626; flex: 1; }
+    .flag-emblem .white { background: #ffffff; flex: 1; }
+
+    .brand-title h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.05rem, 2vw, 1.4rem);
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    .brand-title p {
+      font-size: 0.8rem;
+      color: #fde68a;
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-top {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-top:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .btn-top.active-toggle {
+      background: #fef3c7;
+      color: var(--crimson-dark);
+      border-color: #f59e0b;
+    }
+
+    /* MAIN LAYOUT */
+    .main-container {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 370px;
+      gap: 1.25rem;
+      flex: 1;
+      align-items: start;
+    }
+
+    @media (max-width: 1080px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* BOARD SECTION */
+    .board-section {
+      background: #fdfaf3;
+      border: 3px solid #8c6d46;
+      border-radius: var(--radius-lg);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .zone-legend-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-parchment-dark);
+      border-radius: 8px;
+      border: 1px solid var(--border-vintage);
+    }
+
+    .zone-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .zone-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .zone-pill.z42 { background: var(--zone-1942-bg); color: var(--zone-1942-badge); border-color: var(--zone-1942-border); }
+    .zone-pill.z43 { background: var(--zone-1943-bg); color: var(--zone-1943-badge); border-color: var(--zone-1943-border); }
+    .zone-pill.z44 { background: var(--zone-1944-bg); color: var(--zone-1944-badge); border-color: var(--zone-1944-border); }
+    .zone-pill.z45 { background: var(--zone-1945-bg); color: var(--zone-1945-badge); border-color: var(--zone-1945-border); }
+
+    .board-hint {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    /* BOARD WRAPPER & GRID */
+    .board-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 10 / 5.4;
+      min-height: 360px;
+      border: 3px solid #5c4028;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fdf8ee;
+      box-shadow: inset 0 0 18px rgba(92, 64, 40, 0.12);
+    }
+
+    @media (max-width: 680px) {
+      .board-stage {
+        aspect-ratio: 10 / 7.5;
+        min-height: 330px;
+      }
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tile {
+      position: relative;
+      border: 1px solid rgba(140, 109, 70, 0.38);
+      padding: 4px 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .tile.zone-1942 { background-color: var(--zone-1942-bg); }
+    .tile.zone-1943 { background-color: var(--zone-1943-bg); }
+    .tile.zone-1944 { background-color: var(--zone-1944-bg); }
+    .tile.zone-1945 { background-color: var(--zone-1945-bg); }
+
+    .tile.tile-ladder {
+      background: linear-gradient(145deg, #dcfce7 0%, #bbf7d0 100%);
+      border: 2px solid var(--ladder-border);
+      cursor: pointer;
+    }
+
+    .tile.tile-snake {
+      background: linear-gradient(145deg, #fee2e2 0%, #fecaca 100%);
+      border: 2px solid var(--snake-border);
+      cursor: pointer;
+    }
+
+    .tile.tile-start {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #d97706;
+    }
+
+    .tile.tile-finish {
+      background: linear-gradient(135deg, #991b1b 0%, #dc2626 55%, #ffffff 55%, #ffffff 100%);
+      border: 2.5px solid #b45309;
+    }
+
+    .tile.tile-ladder:hover,
+    .tile.tile-snake:hover {
+      z-index: 5;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.55);
+    }
+
+    .tile.tile-highlight {
+      box-shadow: inset 0 0 0 3px #d97706, 0 0 12px rgba(217, 119, 6, 0.7);
+      z-index: 4;
+    }
+
+    .tile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px;
+      z-index: 2;
+    }
+
+    .tile-num {
+      font-weight: 800;
+      font-size: clamp(0.68rem, 1.1vw, 0.92rem);
+      color: var(--ink-dark);
+      line-height: 1;
+    }
+
+    .tile-finish .tile-num {
+      color: #fff;
+      background: #7f1d1d;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .tile-year-tag {
+      font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 4px;
+      line-height: 1.1;
+      opacity: 0.85;
+    }
+    .zone-1942 .tile-year-tag { background: #bbf7d0; color: #14532d; }
+    .zone-1943 .tile-year-tag { background: #fef08a; color: #713f12; }
+    .zone-1944 .tile-year-tag { background: #fed7aa; color: #7c2d12; }
+    .zone-1945 .tile-year-tag { background: #fecaca; color: #7f1d1d; }
+
+    .tile-center-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 2;
+      margin: auto 0;
+    }
+
+    .special-pill {
+      font-size: clamp(0.55rem, 0.85vw, 0.74rem);
+      font-weight: 800;
+      padding: 2px 5px;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      line-height: 1.1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    .special-pill.ladder-pill {
+      background: #15803d;
+      color: #ffffff;
+    }
+
+    .special-pill.snake-pill {
+      background: #b91c1c;
+      color: #ffffff;
+    }
+
+    .tile-desc-mini {
+      font-size: clamp(0.48rem, 0.7vw, 0.63rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #1f2937;
+      margin-top: 2px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tile-finish .tile-desc-mini {
+      background: rgba(255, 255, 255, 0.92);
+      color: #7f1d1d;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-weight: 800;
+      border: 1px solid #dc2626;
+    }
+
+    .tile-pawns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      align-items: center;
+      justify-content: center;
+      min-height: 22px;
+      z-index: 6;
+    }
+
+    /* 3D BOARD VIEW */
+    .board-3d-stage {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      border: 3px solid #5c4028;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #3ba7ea 0%, #7fc8f2 55%, #cfeafa 100%);
+      box-shadow: inset 0 0 24px rgba(20, 60, 90, 0.25);
+      display: none;
+    }
+
+    .board-3d-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .board-3d-hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      gap: 0.4rem;
+      z-index: 5;
+      flex-wrap: wrap;
+    }
+
+    .cam-btn {
+      background: rgba(20, 14, 10, 0.72);
+      color: #f7e9d0;
+      border: 1px solid rgba(226, 199, 146, 0.45);
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: all 0.18s ease;
+    }
+
+    .cam-btn:hover {
+      background: rgba(60, 42, 26, 0.85);
+    }
+
+    .cam-btn.active {
+      background: #d97706;
+      border-color: #fbbf24;
+      color: #1f1300;
+    }
+
+    .lightning-flash {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(circle at 50% 18%, rgba(240, 252, 255, 0.95) 0%, rgba(150, 210, 255, 0.4) 45%, rgba(120, 190, 255, 0) 78%);
+    }
+
+    .lightning-flash.flash {
+      animation: lightningStrike 0.5s ease-out;
+    }
+
+    @keyframes lightningStrike {
+      0% { opacity: 0; }
+      6% { opacity: 1; }
+      18% { opacity: 0.12; }
+      28% { opacity: 0.85; }
+      45% { opacity: 0.08; }
+      100% { opacity: 0; }
+    }
+
+    .board-3d-note {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      font-size: 0.72rem;
+      color: #ead9bb;
+      background: rgba(20, 14, 10, 0.6);
+      border: 1px solid rgba(226, 199, 146, 0.25);
+      padding: 0.35rem 0.6rem;
+      border-radius: 8px;
+      z-index: 5;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    @media (max-width: 680px) {
+      .board-3d-stage {
+        height: 400px;
+      }
+    }
+
+    body.view-3d .board-3d-stage {
+      display: block;
+    }
+
+    body.view-3d .board-stage,
+    body.view-3d .start-base-bar {
+      display: none;
+    }
+
+    /* SVG OVERLAY FOR SNAKES & LADDERS */
+    .board-svg-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 3;
+      transition: opacity 0.25s ease;
+    }
+    .board-svg-overlay.hidden-lines {
+      opacity: 0.12;
+    }
+
+    /* PAWN TOKENS */
+    .pawn-token {
+      width: clamp(20px, 2.3vw, 28px);
+      height: clamp(20px, 2.3vw, 28px);
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+      font-weight: 900;
+      color: #fff;
+      position: relative;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .pawn-token.active-turn-pawn {
+      animation: pulsePawn 1.2s infinite alternate;
+      border-color: #fde047;
+      z-index: 8;
+    }
+
+    @keyframes pulsePawn {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.8); }
+      100% { transform: scale(1.18); box-shadow: 0 0 0 6px rgba(250, 204, 21, 0); }
+    }
+
+    /* MARKAS START (PETAK 0) BAR BELOW BOARD */
+    .start-base-bar {
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      background: #f5ead6;
+      border: 2px dashed #8c6d46;
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    .start-base-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+    }
+
+    .start-base-pawns {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 30px;
+    }
+
+    .start-empty-note {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    /* SIDEBAR PANEL */
+    .sidebar-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .panel-card {
+      background: #fdfaf3;
+      border: 2px solid #8c6d46;
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .panel-card-header {
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--crimson-dark);
+      border-bottom: 2px solid #e6d7be;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ACTIVE TURN & DICE BOX */
+    .turn-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem;
+      border-radius: 10px;
+      background: var(--bg-parchment-dark);
+      border: 1px solid var(--border-vintage);
+      margin-bottom: 0.85rem;
+    }
+
+    .turn-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      border: 2.5px solid #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      flex-shrink: 0;
+    }
+
+    .turn-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .turn-details .player-name {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--ink-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .turn-details .figure-name {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+
+    .bonus-six-badge {
+      display: none;
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #f59e0b;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.65rem;
+      text-align: center;
+    }
+    .bonus-six-badge.visible {
+      display: block;
+    }
+
+    .dice-stage {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: #f5ead6;
+      padding: 0.85rem;
+      border-radius: 12px;
+      border: 1px solid #d5c19f;
+    }
+
+    .dice-visual-box {
+      width: 68px;
+      height: 68px;
+      background: #ffffff;
+      border: 3px solid var(--crimson-dark);
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(110, 16, 16, 0.22), inset 0 -3px 0 #e5e7eb;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 8px;
+      gap: 4px;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .dice-visual-box.rolling {
+      animation: shakeDice 0.14s infinite;
+    }
+
+    @keyframes shakeDice {
+      0% { transform: rotate(-12deg) scale(1.05); }
+      50% { transform: rotate(12deg) scale(0.95); }
+      100% { transform: rotate(-8deg) scale(1.02); }
+    }
+
+    .pip {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: transparent;
+    }
+    .pip.on {
+      background: var(--ink-dark);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .pip.on.red-pip {
+      background: var(--crimson-main);
+    }
+
+    .roll-action-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .btn-roll-dice {
+      width: 100%;
+      background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+      color: #ffffff;
+      border: 2px solid #7f1d1d;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #5f1111, 0 6px 12px rgba(0,0,0,0.2);
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-roll-dice:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .btn-roll-dice:active:not(:disabled) {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #5f1111;
+    }
+
+    .btn-roll-dice:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: grayscale(0.35);
+    }
+
+    .dice-result-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-align: center;
+    }
+
+    /* PLAYER STANDINGS LIST */
+    .players-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      background: #f8f2e7;
+      border: 1.5px solid #decbb0;
+      transition: all 0.2s ease;
+    }
+
+    .player-row.is-active {
+      background: #fffbeb;
+      border-color: #d97706;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.18);
+    }
+
+    .player-row-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+
+    .mini-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    }
+
+    .player-row-info {
+      min-width: 0;
+    }
+    .player-row-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--ink-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .player-row-sub {
+      font-size: 0.7rem;
+      color: var(--ink-muted);
+    }
+
+    .player-row-pos {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .pos-badge {
+      display: inline-block;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      background: #e8dcc4;
+      color: var(--ink-dark);
+    }
+
+    .pos-zone {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    /* EVENT LOG */
+    .history-log-box {
+      max-height: 210px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      padding-right: 4px;
+    }
+
+    .log-item {
+      font-size: 0.78rem;
+      line-height: 1.35;
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      background: #f5ead6;
+      border-left: 4px solid #8c6d46;
+      color: var(--ink-dark);
+    }
+    .log-item.log-good { border-left-color: #16a34a; background: #f0fdf4; }
+    .log-item.log-bad { border-left-color: #dc2626; background: #fef2f2; }
+    .log-item.log-special { border-left-color: #d97706; background: #fffbeb; font-weight: 600; }
+
+    /* MODALS (SETUP, QUESTION, EVENT TOAST, GUIDE, VICTORY) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(24, 18, 12, 0.75);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #fdfaf3;
+      border: 3px solid #7c5832;
+      border-radius: 16px;
+      max-width: 640px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      padding: 1.35rem;
+      position: relative;
+      animation: popIn 0.22s ease-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* SETUP MODAL */
+    .setup-title {
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--crimson-dark);
+      margin-bottom: 0.35rem;
+    }
+    .setup-subtitle {
+      font-size: 0.86rem;
+      color: var(--ink-muted);
+      margin-bottom: 1rem;
+    }
+
+    .player-count-selector {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .count-btn {
+      flex: 1;
+      padding: 0.6rem;
+      border: 2px solid #bca686;
+      background: #f5ead6;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--ink-dark);
+    }
+    .count-btn.selected {
+      background: var(--crimson-main);
+      color: #fff;
+      border-color: var(--crimson-dark);
+    }
+
+    .setup-players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .setup-player-card {
+      background: #f5ead6;
+      border: 2px solid #cbb799;
+      border-radius: 10px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .setup-figure-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .setup-input {
+      width: 100%;
+      padding: 0.5rem 0.65rem;
+      border-radius: 6px;
+      border: 1.5px solid #9c8260;
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: #fff;
+      color: var(--ink-dark);
+    }
+
+    /* QUESTION MODAL */
+    .quiz-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .quiz-zone-badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .quiz-timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1.5px solid #f59e0b;
+    }
+    .quiz-timer-pill.danger {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #ef4444;
+      animation: pulsePawn 0.6s infinite alternate;
+    }
+
+    .timer-bar-track {
+      width: 100%;
+      height: 8px;
+      background: #e5dac5;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .timer-bar-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #16a34a, #eab308, #dc2626);
+      transition: width 1s linear;
+    }
+
+    .quiz-question-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--ink-dark);
+      background: #f5ead6;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      border-left: 5px solid var(--crimson-main);
+      margin-bottom: 1rem;
+    }
+
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-option-btn {
+      width: 100%;
+      text-align: left;
+      background: #ffffff;
+      border: 2px solid #cbb799;
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      transition: all 0.15s ease;
+    }
+
+    .quiz-option-btn:hover:not(:disabled) {
+      border-color: var(--gold-bright);
+      background: #fffbeb;
+      transform: translateX(3px);
+    }
+
+    .opt-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: #e8dcc4;
+      color: var(--ink-dark);
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quiz-option-btn.correct-choice {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+    .quiz-option-btn.correct-choice .opt-letter {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    .quiz-option-btn.wrong-choice {
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #7f1d1d;
+    }
+    .quiz-option-btn.wrong-choice .opt-letter {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    .quiz-feedback-box {
+      display: none;
+      padding: 0.9rem;
+      border-radius: 10px;
+      margin-bottom: 0.9rem;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .quiz-feedback-box.show {
+      display: block;
+    }
+    .quiz-feedback-box.good {
+      background: #dcfce7;
+      border: 2px solid #16a34a;
+      color: #14532d;
+    }
+    .quiz-feedback-box.bad {
+      background: #fee2e2;
+      border: 2px solid #dc2626;
+      color: #7f1d1d;
+    }
+
+    .btn-primary-action {
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary-action:hover {
+      filter: brightness(1.08);
+    }
+
+    /* HISTORICAL EVENT POPUP / TOAST */
+    .event-banner-card {
+      text-align: center;
+      max-width: 480px;
+    }
+
+    .event-icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    /* GUIDE LIST TABLE */
+    .guide-section-title {
+      font-weight: 800;
+      font-size: 1rem;
+      margin: 0.8rem 0 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .guide-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .guide-row {
+      padding: 0.5rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .guide-row.ladder-row { background: #dcfce7; border-left: 4px solid #16a34a; }
+    .guide-row.snake-row { background: #fee2e2; border-left: 4px solid #dc2626; }
+
+    .guide-route {
+      font-weight: 800;
+      white-space: nowrap;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.75);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <div class="flag-emblem" aria-hidden="true">
+        <div class="red"></div>
+        <div class="white"></div>
+      </div>
+      <div class="brand-title">
+        <h1>ULAR TANGGA SEJARAH: PENDUDUKAN JEPANG (1942–1945)</h1>
+        <p>Media Pembelajaran Interaktif Sejarah Indonesia — Menuju Proklamasi 17 Agustus 1945</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="btn-top active-toggle" id="btnToggle3d" title="Ganti tampilan papan: 3D mengikuti pion atau 2D">
+        <span>🧊</span> Tampilan: 3D
+      </button>
+      <button type="button" class="btn-top active-toggle" id="btnToggleLines" title="Tampilkan atau sembunyikan jalur visual Ular & Tangga">
+        <span>🪜</span> Jalur Visual: ON
+      </button>
+      <button type="button" class="btn-top" id="btnOpenGuide">
+        <span>📜</span> Daftar Tangga & Ular
+      </button>
+      <button type="button" class="btn-top" id="btnToggleSound">
+        <span id="soundIcon">🔊</span> Suara: ON
+      </button>
+      <button type="button" class="btn-top" id="btnOpenSetup">
+        <span>🔄</span> Ulangi / Pemain
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-container">
+    <!-- LEFT: BOARD -->
+    <section class="board-section" aria-label="Papan Permainan 50 Petak">
+      <div class="zone-legend-bar">
+        <div class="zone-pills">
+          <span class="zone-pill z42">1–12: Zona 1942 (Mudah)</span>
+          <span class="zone-pill z43">13–25: Zona 1943 (Sedang)</span>
+          <span class="zone-pill z44">26–37: Zona 1944 (Sedang)</span>
+          <span class="zone-pill z45">38–50: Zona 1945 (Sulit)</span>
+        </div>
+        <span class="board-hint">💡 Klik petak Tangga (⬆️) atau Ular (⬇️) untuk info sejarah</span>
+      </div>
+
+      <div class="board-stage" id="boardStage">
+        <div class="board-grid" id="boardGrid"></div>
+        <svg class="board-svg-overlay" id="boardSvg" preserveAspectRatio="none"></svg>
+      </div>
+
+      <div class="board-3d-stage" id="board3dHost">
+        <div class="board-3d-hud">
+          <button type="button" class="cam-btn active" data-cam="follow" title="Kamera mengikuti pion yang sedang giliran">🎯 Ikuti Pion</button>
+          <button type="button" class="cam-btn" data-cam="overview" title="Kamera melihat seluruh papan">🗺️ Seluruh Papan</button>
+        </div>
+        <div class="board-3d-note">Geser untuk memutar kamera • Scroll untuk zoom • Kamera otomatis naik mengikuti pion di tangga</div>
+        <div class="lightning-flash" id="lightningFlash"></div>
+      </div>
+
+      <!-- PETAK 0 / MARKAS START -->
+      <div class="start-base-bar">
+        <div class="start-base-label">
+          <span>⛺</span>
+          <span>Markas Awal (Petak 0 / Garis Mula sebelum masuk Petak 1):</span>
+        </div>
+        <div class="start-base-pawns" id="startBasePawns"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT: CONTROLS & LOG -->
+    <aside class="sidebar-panel">
+      <!-- GILIRAN & DADU -->
+      <div class="panel-card">
+        <div class="panel-card-header">
+          <span>🎲 Giliran & Kendali Dadu</span>
+          <span id="turnCounterBadge" style="font-size:0.78rem; color:var(--ink-muted);">Putaran 1</span>
+        </div>
+
+        <div class="turn-banner" id="activeTurnBanner">
+          <div class="turn-avatar" id="activeTurnAvatar">S</div>
+          <div class="turn-details">
+            <div class="player-name" id="activePlayerName">Ir. Soekarno</div>
+            <div class="figure-name" id="activeFigureRole">Tokoh Pergerakan Nasional</div>
+          </div>
+        </div>
+
+        <div class="bonus-six-badge" id="bonusSixBanner">
+          🌟 Dadu Angka 6! Anda mendapat 1 lemparan bonus setelah langkah ini!
+        </div>
+
+        <div class="dice-stage">
+          <div class="dice-visual-box" id="diceVisual" aria-label="Visual Dadu">
+            <span class="pip" data-pip="1"></span>
+            <span class="pip" data-pip="2"></span>
+            <span class="pip" data-pip="3"></span>
+            <span class="pip" data-pip="4"></span>
+            <span class="pip on red-pip" data-pip="5"></span>
+            <span class="pip" data-pip="6"></span>
+            <span class="pip" data-pip="7"></span>
+            <span class="pip" data-pip="8"></span>
+            <span class="pip" data-pip="9"></span>
+          </div>
+
+          <div class="roll-action-col">
+            <button type="button" class="btn-roll-dice" id="btnRollDice">
+              <span>🎲</span> LEMPAR DADU
+            </button>
+            <div class="dice-result-text" id="diceStatusText">Siap melempar dadu (1–6)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POSISI PEMAIN -->
+      <div class="panel-card">
+        <div class="panel-card-header">
+          <span>👥 Posisi Pion Tokoh</span>
+          <span style="font-size:0.75rem; color:var(--ink-muted);">Target: Petak 50</span>
+        </div>
+        <div class="players-list" id="playersStandingsList"></div>
+      </div>
+
+      <!-- LOG RIWAYAT PERISTIWA -->
+      <div class="panel-card">
+        <div class="panel-card-header">
+          <span>📖 Catatan Kronologi Langkah</span>
+          <button type="button" id="btnClearLog" style="background:none;border:none;font-size:0.74rem;color:var(--crimson-main);cursor:pointer;font-weight:700;">Bersihkan</button>
+        </div>
+        <div class="history-log-box" id="historyLogBox"></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- MODAL 1: SETUP PEMAIN -->
+  <div class="modal-backdrop open" id="setupModal">
+    <div class="modal-card">
+      <h2 class="setup-title">Persiapan Permainan Sejarah (1942–1945)</h2>
+      <p class="setup-subtitle">Pilih jumlah pemain (2–4 pemain) dan sesuaikan nama pemain untuk masing-masing pion tokoh pejuang kemerdekaan.</p>
+
+      <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.4rem;">Jumlah Pemain:</div>
+      <div class="player-count-selector" id="playerCountSelector">
+        <button type="button" class="count-btn selected" data-count="2">2 Pemain</button>
+        <button type="button" class="count-btn" data-count="3">3 Pemain</button>
+        <button type="button" class="count-btn" data-count="4">4 Pemain</button>
+      </div>
+
+      <div class="setup-players-grid" id="setupPlayersGrid"></div>
+
+      <div style="background:#f5ead6; padding:0.75rem; border-radius:8px; font-size:0.8rem; line-height:1.45; margin-bottom:1rem; border:1px solid #d5c19f;">
+        <strong>📌 Aturan Inti Permainan:</strong><br/>
+        • Setiap berhenti di petak 1–49, pemain wajib menjawab <strong>Kartu Soal Sejarah</strong> (waktu 30 detik).<br/>
+        • <strong>Jawab Benar:</strong> Maju 2 kotak | <strong>Jawab Salah / Waktu Habis:</strong> Mundur 1 kotak.<br/>
+        • <strong>Dadu Angka 6:</strong> Mendapat 1 kali giliran lempar dadu tambahan.<br/>
+        • <strong>Tabrakan Pion:</strong> Mendarat di petak lawan akan menendang pion lawan kembali ke Markas Awal (Petak 0).<br/>
+        • <strong>Kemenangan:</strong> Harus mendarat <strong>TEPAT di Petak 50</strong> (jika kelebihan langkah, pion memantul mundur).
+      </div>
+
+      <button type="button" class="btn-primary-action" id="btnStartGame">
+        🚀 MULAI PERJUANGAN MENUJU 1945
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 2: KARTU SOAL -->
+  <div class="modal-backdrop" id="quizModal">
+    <div class="modal-card">
+      <div class="quiz-top-bar">
+        <span class="quiz-zone-badge" id="quizZoneBadge">Zona 1942 • Level Mudah</span>
+        <span class="quiz-timer-pill" id="quizTimerPill">⏱️ <span id="quizTimerSec">30</span> detik</span>
+      </div>
+
+      <div class="timer-bar-track">
+        <div class="timer-bar-fill" id="quizTimerBar"></div>
+      </div>
+
+      <div style="font-size:0.8rem; font-weight:700; color:var(--ink-muted); margin-bottom:0.35rem;" id="quizPlayerLabel">
+        Pertanyaan untuk: Ir. Soekarno (Petak 5)
+      </div>
+
+      <div class="quiz-question-text" id="quizQuestionText">
+        Kapan Jepang pertama kali mendarat di Indonesia?
+      </div>
+
+      <div class="quiz-options-list" id="quizOptionsList"></div>
+
+      <div class="quiz-feedback-box" id="quizFeedbackBox"></div>
+
+      <button type="button" class="btn-primary-action" id="btnContinueAfterQuiz" style="display:none;">
+        Lanjutkan Langkah Pion ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 3: INFO TANGGA / ULAR / PERISTIWA -->
+  <div class="modal-backdrop" id="eventModal">
+    <div class="modal-card event-banner-card">
+      <div class="event-icon-circle" id="eventIconCircle">⬆️</div>
+      <h3 id="eventModalTitle" style="font-family:Georgia,serif; font-size:1.25rem; margin-bottom:0.4rem;">Tangga Sejarah!</h3>
+      <div id="eventModalRoute" style="font-weight:800; font-size:0.9rem; margin-bottom:0.65rem; color:var(--gold-accent);">Petak 7 ➔ Petak 23</div>
+      <p id="eventModalDesc" style="font-size:0.95rem; line-height:1.5; background:#f5ead6; padding:0.85rem; border-radius:10px; margin-bottom:1.1rem;"></p>
+      <button type="button" class="btn-primary-action" id="btnCloseEventModal">Mengerti & Lanjutkan</button>
+    </div>
+  </div>
+
+  <!-- MODAL 4: DAFTAR TANGGA & ULAR -->
+  <div class="modal-backdrop" id="guideModal">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+        <h3 style="font-family:Georgia,serif; font-size:1.2rem; color:var(--crimson-dark);">📜 Peta Peristiwa Tangga & Ular (1942–1945)</h3>
+        <button type="button" id="btnCloseGuideTop" style="background:none; border:none; font-size:1.3rem; cursor:pointer; font-weight:800;">✕</button>
+      </div>
+      <p style="font-size:0.83rem; color:var(--ink-muted); margin-bottom:0.75rem;">
+        Setiap tangga melambangkan momentum perjuangan menuju kemerdekaan, sedangkan ular melambangkan penindasan dan tantangan berat pada masa pendudukan Jepang.
+      </p>
+
+      <div class="guide-section-title" style="color:var(--ladder-green);">
+        <span>⬆️</span> TANGGA PERJUANGAN (NAIK)
+      </div>
+      <div class="guide-list" id="guideLaddersList"></div>
+
+      <div class="guide-section-title" style="color:var(--snake-red);">
+        <span>⬇️</span> ULAR PENINDASAN & HAMBATAN (TURUN)
+      </div>
+      <div class="guide-list" id="guideSnakesList"></div>
+
+      <button type="button" class="btn-primary-action" id="btnCloseGuideBottom" style="margin-top:1.1rem;">
+        Tutup Daftar Sejarah
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 5: KEMENANGAN PROKLAMASI -->
+  <div class="modal-backdrop" id="victoryModal">
+    <div class="modal-card" style="text-align:center;">
+      <div style="font-size:3rem; margin-bottom:0.4rem;">🇮🇩🏆🎺</div>
+      <div style="display:inline-block; background:#dc2626; color:#fff; font-weight:800; font-size:0.78rem; padding:0.25rem 0.75rem; border-radius:999px; margin-bottom:0.5rem;">
+        17 AGUSTUS 1945 • MERDEKA!
+      </div>
+      <h2 id="victoryTitle" style="font-family:Georgia,serif; font-size:1.45rem; color:var(--crimson-dark); margin-bottom:0.5rem;">
+        PROKLAMATOR! Soekarno mencapai Proklamasi 17 Agustus 1945!
+      </h2>
+      <p style="font-size:0.9rem; color:var(--ink-muted); margin-bottom:1rem;">
+        "Kami bangsa Indonesia dengan ini menjatakan Kemerdekaan Indonesia..."
+      </p>
+
+      <div id="victoryStatsBox" style="background:#f5ead6; border:2px solid #cbb799; border-radius:10px; padding:0.85rem; text-align:left; font-size:0.85rem; margin-bottom:1.2rem;"></div>
+
+      <button type="button" class="btn-primary-action" id="btnPlayAgainVictory">
+        🔄 Main Lagi dari Awal
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /*************************************************************************
+     * DATA SEJARAH: TOKOH PION, TANGGA, ULAR, DAN 36 SOAL (12 PER LEVEL)
+     *************************************************************************/
+    const FIGURES = [
+      {
+        id: 'soekarno',
+        defaultName: 'Ir. Soekarno',
+        role: 'Tokoh Pergerakan & Proklamator',
+        color: '#b91c1c',
+        short: 'SK',
+        badgeIcon: '🎙️'
+      },
+      {
+        id: 'hatta',
+        defaultName: 'Drs. Moh. Hatta',
+        role: 'Pemimpin Putera & Proklamator',
+        color: '#1d4ed8',
+        short: 'MH',
+        badgeIcon: '👓'
+      },
+      {
+        id: 'supriyadi',
+        defaultName: 'Supriyadi',
+        role: 'Komandan Peleton PETA Blitar',
+        color: '#15803d',
+        short: 'SP',
+        badgeIcon: '⚔️'
+      },
+      {
+        id: 'zainal',
+        defaultName: 'KH Zainal Mustafa',
+        role: 'Ulama Pejuang Singaparna',
+        color: '#b45309',
+        short: 'ZM',
+        badgeIcon: '👳'
+      }
+    ];
+
+    const LADDERS = {
+      2: {
+        to: 12,
+        shortLabel: 'Bahasa Indonesia Resmi',
+        desc: 'Bahasa Indonesia menjadi bahasa resmi (Jepang melarang penggunaan bahasa Belanda di seluruh instansi dan sekolah).'
+      },
+      7: {
+        to: 23,
+        shortLabel: 'PETA Dibentuk (3 Okt 1943)',
+        desc: 'PETA dibentuk, 3 Oktober 1943 (pemuda Indonesia dilatih militer secara intensif, menjadi cikal bakal TNI).'
+      },
+      14: {
+        to: 27,
+        shortLabel: 'Janji Koiso (7 Sep 1944)',
+        desc: 'Janji Koiso, 7 September 1944 (Perdana Menteri Koiso berjanji memberi kemerdekaan kepada Indonesia di kemudian hari).'
+      },
+      19: {
+        to: 31,
+        shortLabel: 'BPUPKI (29 Apr 1945)',
+        desc: 'BPUPKI dibentuk, 29 April 1945 (Dokuritsu Junbi Cosakai bertugas menyelidiki usaha-usaha persiapan kemerdekaan).'
+      },
+      26: {
+        to: 36,
+        shortLabel: 'PPKI (7 Agu 1945)',
+        desc: 'PPKI dibentuk, 7 Agustus 1945 (Panitia Persiapan Kemerdekaan Indonesia menggantikan BPUPKI untuk mempersiapkan kemerdekaan).'
+      },
+      33: {
+        to: 42,
+        shortLabel: 'Jepang Menyerah (14 Agu)',
+        desc: 'Jepang menyerah kepada Sekutu, 14 Agustus 1945 (terjadi kekosongan kekuasaan / vacuum of power di Indonesia).'
+      },
+      40: {
+        to: 48,
+        shortLabel: 'Rengasdengklok (16 Agu)',
+        desc: 'Peristiwa Rengasdengklok, 16 Agustus 1945 (golongan muda mendesak Soekarno-Hatta segera memproklamasikan kemerdekaan).'
+      }
+    };
+
+    const SNAKES = {
+      9: {
+        to: 3,
+        shortLabel: 'Romusha (Kerja Paksa)',
+        desc: 'Romusha (sistem kerja paksa zaman Jepang yang menyengsarakan ratusan ribu rakyat Indonesia).'
+      },
+      16: {
+        to: 6,
+        shortLabel: 'Jugun Ianfu',
+        desc: 'Jugun Ianfu (praktik kejam terhadap wanita yang dijadikan penghibur paksa militer Jepang).'
+      },
+      22: {
+        to: 11,
+        shortLabel: 'Kelaparan & Kemiskinan',
+        desc: 'Kelaparan dan kemiskinan meluas (padi wajib setor dirampas Jepang dan harga kebutuhan melambung tinggi).'
+      },
+      29: {
+        to: 17,
+        shortLabel: 'Perlawanan Singaparna',
+        desc: 'Perlawanan Singaparna gagal (dipimpin KH Zainal Mustafa pada Februari 1944 yang menolak Seikerei).'
+      },
+      35: {
+        to: 24,
+        shortLabel: 'PETA Blitar Gagal',
+        desc: 'Pemberontakan PETA Blitar gagal (dipimpin Shodanco Supriyadi pada 14 Februari 1945 melawan kezaliman Jepang).'
+      },
+      45: {
+        to: 32,
+        shortLabel: 'Hasil Bumi Dirampas',
+        desc: 'Hasil bumi dirampas secara paksa (padi, karet, kina, dan besi dikuras habis untuk logistik Perang Pasifik Jepang).'
+      }
+    };
+
+    // Dipakai oleh modul 3D (board3d.js)
+    window.GAME_LADDERS = LADDERS;
+    window.GAME_SNAKES = SNAKES;
+
+    // BANK SOAL 36 PERTANYAAN (12 MUDAH, 12 SEDANG, 12 SULIT)
+    const QUESTION_BANK = {
+      mudah: [
+        {
+          q: 'Kapan dan di mana tentara Jepang pertama kali mendarat di Indonesia?',
+          options: [
+            '11 Januari 1942 di Tarakan, Kalimantan Timur',
+            '8 Maret 1942 di Kalijati, Subang, Jawa Barat',
+            '1 Maret 1942 di Teluk Banten dan Eretan Wetan',
+            '15 Februari 1942 di Palembang, Sumatera Selatan'
+          ],
+          correct: 0,
+          exp: 'Pasukan Jepang pertama kali mendarat di Indonesia pada 11 Januari 1942 di Tarakan (Kalimantan Timur) untuk menguasai ladang minyak strategis.'
+        },
+        {
+          q: 'Di mana dan kapan pemerintah kolonial Hindia Belanda menyerah tanpa syarat kepada Jepang?',
+          options: [
+            'Kalijati, Subang, 8 Maret 1942',
+            'Linggarjati, Kuningan, 15 November 1942',
+            'Batavia, 11 Januari 1942',
+            'Surabaya, 10 November 1942'
+          ],
+          correct: 0,
+          exp: 'Kapitulasi Kalijati ditandatangani di Kalijati, Subang, Jawa Barat pada 8 Maret 1942 sebagai tanda berakhirnya kekuasaan Hindia Belanda.'
+        },
+        {
+          q: 'Apa kepanjangan dari organisasi militer bentukan Jepang "PETA"?',
+          options: [
+            'Pembela Tanah Air',
+            'Persatuan Tentara Asia',
+            'Pasukan Elit Tanah Air',
+            'Perhimpunan Taruna Asia'
+          ],
+          correct: 0,
+          exp: 'PETA adalah singkatan dari Pembela Tanah Air (Kyodo Boei Giyugun) yang melatih militer para pemuda Indonesia.'
+        },
+        {
+          q: 'Apa makna semboyan propaganda Jepang yang mengaku sebagai "Saudara Tua" bagi bangsa Indonesia?',
+          options: [
+            'Jepang mengaku sebagai kakak tertua pembebas bangsa Asia dari penjajahan Barat',
+            'Jepang berjanji membagi kekayaan industri secara merata dengan kerajaan Nusantara',
+            'Jepang menganggap kaisar mereka memiliki garis keturunan raja-raja Majapahit',
+            'Jepang membebaskan seluruh pajak hasil bumi bagi petani di Pulau Jawa'
+          ],
+          correct: 0,
+          exp: 'Propaganda "Saudara Tua" bertujuan memikat hati rakyat Indonesia dengan mencitrakan Jepang sebagai pembebas Asia dari imperialisme bangsa Barat.'
+        },
+        {
+          q: 'Apa isi semboyan propaganda Gerakan Tiga A yang dikampanyekan Jepang pada tahun 1942?',
+          options: [
+            'Nippon Cahaya Asia, Nippon Pelindung Asia, Nippon Pemimpin Asia',
+            'Asia untuk Bangsa Asia, Asia Bersatu, Asia Jaya Raya',
+            'Nippon Sahabat Indonesia, Nippon Saudara Tua, Nippon Pembebas Asia',
+            'Satu Nusa, Satu Bangsa, Satu Kemakmuran Bersama Asia Timur Raya'
+          ],
+          correct: 0,
+          exp: 'Gerakan Tiga A memiliki semboyan: Nippon Cahaya Asia, Nippon Pelindung Asia, dan Nippon Pemimpin Asia.'
+        },
+        {
+          q: 'Siapakah tokoh nasional Indonesia yang ditunjuk Jepang untuk memimpin Gerakan Tiga A?',
+          options: [
+            'Mr. Syamsudin',
+            'Ir. Soekarno',
+            'Dr. Radjiman Wedyodiningrat',
+            'Sutan Sjahrir'
+          ],
+          correct: 0,
+          exp: 'Jepang menunjuk Mr. Syamsudin (tokoh Parindra asal Jawa Barat) sebagai ketua Gerakan Tiga A pada Maret 1942.'
+        },
+        {
+          q: 'Siapa panglima tentara Jepang (Angkatan Darat ke-16) yang memimpin pendaratan pasukan di Pulau Jawa pada Maret 1942?',
+          options: [
+            'Letjen Hitoshi Imamura',
+            'Laksamana Tadashi Maeda',
+            'Jenderal Hideki Tojo',
+            'Marsekal Hisaichi Terauchi'
+          ],
+          correct: 0,
+          exp: 'Letnan Jenderal Hitoshi Imamura memimpin Angkatan Darat ke-16 Jepang mendarat di Jawa dan menerima penyerahan Belanda di Kalijati.'
+        },
+        {
+          q: 'Siapa panglima militer tentara Hindia Belanda (KNIL) yang menandatangani penyerahan kekuasaan di Kalijati?',
+          options: [
+            'Letjen Hein ter Poorten',
+            'Gubernur Jenderal Tjarda van Starkenborgh',
+            'Laksamana Karel Doorman',
+            'Jenderal Simon Spoor'
+          ],
+          correct: 0,
+          exp: 'Letjen Hein ter Poorten selaku Panglima Angkatan Perang Hindia Belanda menandatangani Kapitulasi Kalijati pada 8 Maret 1942.'
+        },
+        {
+          q: 'Mengapa pada masa awal kedatangannya Jepang mengizinkan pengibaran bendera Merah Putih dan menyanyikan lagu Indonesia Raya?',
+          options: [
+            'Untuk menarik simpati rakyat Indonesia agar bersedia membantu Jepang',
+            'Karena Jepang sudah mengakui kedaulatan Republik Indonesia sejak Januari 1942',
+            'Atas desakan perjanjian internasional antara Jepang dan Sekutu di Pasifik',
+            'Karena bendera Jepang dan Indonesia memiliki warna dasar yang sama'
+          ],
+          correct: 0,
+          exp: 'Pada awal pendudukan, Jepang melonggarkan simbol kebangsaan Indonesia semata-mata agar rakyat menyambut dan mendukung kedatangan tentara Jepang.'
+        },
+        {
+          q: 'Lagu kebangsaan Jepang yang wajib diperdengarkan setiap pagi disertai penghormatan membungkuk (Seikerei) adalah...',
+          options: [
+            'Kimigayo',
+            'Sakura',
+            'Hinomaru',
+            'Banzai Nippon'
+          ],
+          correct: 0,
+          exp: 'Kimigayo adalah lagu kebangsaan Jepang yang wajib dinyanyikan bersama penghormatan bendera Hinomaru dan tradisi Seikerei.'
+        },
+        {
+          q: 'Kalender resmi yang diwajibkan Jepang untuk menggantikan tarikh Masehi (1942) di Indonesia adalah...',
+          options: [
+            'Kalender Sumera (Tahun 2602)',
+            'Kalender Saka Nusantara',
+            'Kalender Meiji Baru',
+            'Kalender Asia Timur Raya (Tahun 1001)'
+          ],
+          correct: 0,
+          exp: 'Jepang mewajibkan penggunaan Kalender Sumera, di mana tahun 1942 Masehi bertepatan dengan tahun 2602 Sumera (selisih 660 tahun).'
+        },
+        {
+          q: 'Dua kota penghasil minyak di Kalimantan Timur yang pertama kali dikuasai Jepang pada Januari 1942 adalah...',
+          options: [
+            'Tarakan dan Balikpapan',
+            'Pontianak dan Banjarmasin',
+            'Samarinda dan Palangkaraya',
+            'Bontang dan Singkawang'
+          ],
+          correct: 0,
+          exp: 'Tarakan (11 Januari 1942) dan Balikpapan (24 Januari 1942) menjadi sasaran utama karena cadangan minyak bumi yang dibutuhkan mesin perang Jepang.'
+        }
+      ],
+      sedang: [
+        {
+          q: 'Siapa saja tokoh nasional yang dikenal sebagai "Empat Serangkai" pemimpin organisasi Putera?',
+          options: [
+            'Ir. Soekarno, Drs. Moh. Hatta, Ki Hajar Dewantara, dan KH Mas Mansyur',
+            'Ir. Soekarno, Drs. Moh. Hatta, Sutan Sjahrir, dan Amir Sjarifuddin',
+            'Dr. Radjiman, Mr. Soepomo, Moh. Yamin, dan Ir. Soekarno',
+            'KH Hasyim Asy’ari, KH Ahmad Dahlan, Ki Hajar Dewantara, dan Moh. Hatta'
+          ],
+          correct: 0,
+          exp: 'Empat Serangkai terdiri dari Ir. Soekarno, Drs. Moh. Hatta, Ki Hajar Dewantara, dan KH Mas Mansyur.'
+        },
+        {
+          q: 'Apa yang dimaksud dengan Romusha pada masa pendudukan Jepang di Indonesia?',
+          options: [
+            'Sistem kerja paksa tanpa upah layak untuk membangun infrastruktur perang Jepang',
+            'Barisan prajurit sukarela yang dikirim belajar teknologi industri ke Tokyo',
+            'Pajak hasil pertanian sebesar 40 persen yang disetor ke lumbung desa',
+            'Kelompok pemuda terpelajar yang bertugas menyiarkan berita radio Jepang'
+          ],
+          correct: 0,
+          exp: 'Romusha adalah pengerahan tenaga kerja paksa rakyat Indonesia untuk membangun kubu pertahanan, rel kereta api, dan lapangan terbang Jepang.'
+        },
+        {
+          q: 'Kapan organisasi militer PETA (Pembela Tanah Air) resmi dibentuk oleh pemerintah pendudukan Jepang?',
+          options: [
+            '3 Oktober 1943',
+            '16 April 1943',
+            '29 April 1945',
+            '14 Februari 1945'
+          ],
+          correct: 0,
+          exp: 'PETA resmi dibentuk pada 3 Oktober 1943 melalui maklumat Osamu Seirei No. 44 atas usulan Gatot Mangkupraja.'
+        },
+        {
+          q: 'Siapakah komandan peleton (Shodanco) yang memimpin pemberontakan PETA di Blitar terhadap Jepang?',
+          options: [
+            'Supriyadi',
+            'Sudirman',
+            'Urip Sumoharjo',
+            'Gatot Subroto'
+          ],
+          correct: 0,
+          exp: 'Shodanco Supriyadi memimpin pemberontakan PETA di Blitar pada 14 Februari 1945 karena tidak tahan melihat penderitaan para pekerja romusha.'
+        },
+        {
+          q: 'Apa yang dimaksud dengan organisasi Jawa Hokokai (Himpunan Kebaktian Rakyat Jawa)?',
+          options: [
+            'Organisasi bentukan Jepang tahun 1944 pengganti Putera untuk memobilisasi rakyat dan hasil bumi',
+            'Lembaga pendidikan militer khusus bagi perwira angkatan laut di Surabaya',
+            'Badan perumus undang-undang dasar yang dipimpin oleh tokoh pergerakan nasional',
+            'Perkumpulan pedagang pribumi dan Jepang untuk mengatur mata uang gulden'
+          ],
+          correct: 0,
+          exp: 'Jawa Hokokai dibentuk pada 1 Maret 1944 langsung di bawah komando Gunseikan setelah Jepang menilai Putera lebih menguntungkan perjuangan bangsa Indonesia.'
+        },
+        {
+          q: 'Pada tanggal berapakah organisasi Putera (Pusat Tenaga Rakyat) resmi didirikan?',
+          options: [
+            '16 April 1943',
+            '8 Maret 1942',
+            '3 Oktober 1943',
+            '7 September 1944'
+          ],
+          correct: 0,
+          exp: 'Putera (Pusat Tenaga Rakyat) dibentuk pada 16 April 1943 dan dipimpin oleh tokoh Empat Serangkai.'
+        },
+        {
+          q: 'Siapa ulama karismatik yang memimpin perlawanan rakyat di Pesantren Sukamanah, Singaparna, Tasikmalaya pada Februari 1944?',
+          options: [
+            'KH Zainal Mustafa',
+            'KH Mas Mansyur',
+            'KH Abdul Wahid Hasyim',
+            'Teuku Abdul Jalil'
+          ],
+          correct: 0,
+          exp: 'KH Zainal Mustafa memimpin para santri Pesantren Sukamanah di Singaparna, Tasikmalaya melawan pasukan Jepang pada 25 Februari 1944.'
+        },
+        {
+          q: 'Mengapa KH Zainal Mustafa beserta para santri menolak keras melakukan tradisi Seikerei?',
+          options: [
+            'Membungkuk ke arah matahari terbit/Kaisar Jepang dianggap menyekutukan Tuhan (syirik)',
+            'Seikerei hanya boleh dilakukan oleh warga berkebangsaan Jepang asli',
+            'Upacara Seikerei mewajibkan pembayaran upeti beras setiap hari Jumat',
+            'Tradisi tersebut melarang penggunaan bahasa daerah di lingkungan pesantren'
+          ],
+          correct: 0,
+          exp: 'Umat Islam menolak Seikerei (membungkuk 90 derajat ke arah Tokyo/Kaisar Tenno Heika) karena menyerupai gerakan rukuk dalam salat sehingga dianggap syirik.'
+        },
+        {
+          q: 'Apa nama barisan pemuda semi-militer bentukan Jepang yang melatih pemuda Indonesia berusia 14–25 tahun?',
+          options: [
+            'Seinendan',
+            'Keibodan',
+            'Fujinkai',
+            'Jibakutai'
+          ],
+          correct: 0,
+          exp: 'Seinendan (Korps Pemuda) dibentuk pada 29 April 1943 untuk mendidik dan melatih para pemuda berusia 14–25 tahun.'
+        },
+        {
+          q: 'Apa nama barisan pembantu polisi yang dibentuk Jepang pada 29 April 1943 untuk menjaga keamanan desa?',
+          options: [
+            'Keibodan',
+            'Seinendan',
+            'Heiho',
+            'Suishintai'
+          ],
+          correct: 0,
+          exp: 'Keibodan (Korps Kewaspadaan) adalah barisan pembantu polisi bagi pemuda berusia 25–35 tahun.'
+        },
+        {
+          q: 'Apa nama organisasi prajurit pembantu tentara Jepang yang anggotanya direkrut dari pemuda Indonesia dan dikirim hingga ke medan perang Pasifik?',
+          options: [
+            'Heiho',
+            'PETA',
+            'Jawa Hokokai',
+            'Putera'
+          ],
+          correct: 0,
+          exp: 'Heiho (Pasukan Pembantu Prajurit Jepang) merupakan bagian resmi dari struktur militer Jepang yang ditempatkan di garis depan pertempuran.'
+        },
+        {
+          q: 'Organisasi Islam yang diizinkan berdiri dan kemudian dibentuk ulang oleh Jepang pada akhir tahun 1943 untuk merangkul umat Islam adalah...',
+          options: [
+            'Masyumi (Majelis Syuro Muslimin Indonesia)',
+            'Sarekat Islam Indonesia',
+            'Partai Muslimin Nusantara',
+            'Gerakan Pemuda Islam Raya'
+          ],
+          correct: 0,
+          exp: 'Jepang mengizinkan berdirinya Masyumi (Majelis Syuro Muslimin Indonesia) pada Oktober/November 1943 setelah membubarkan MIAI.'
+        }
+      ],
+      sulit: [
+        {
+          q: 'Mengapa Perdana Menteri Kuniaki Koiso memberikan "Janji Kemerdekaan di Kemudian Hari" (Janji Koiso) pada 7 September 1944?',
+          options: [
+            'Kedudukan militer Jepang semakin terdesak oleh Sekutu dalam Perang Pasifik sehingga butuh dukungan penuh rakyat Indonesia',
+            'Jepang telah memenangkan seluruh pertempuran di Laut Karang dan ingin memberi hadiah kepada Empat Serangkai',
+            'Adanya perintah langsung dari Perserikatan Bangsa-Bangsa agar Jepang melepaskan tanah jajahan',
+            'Perekonomian Jepang mengalami surplus besar akibat melimpahnya ekspor karet dari Pulau Jawa'
+          ],
+          correct: 0,
+          exp: 'Setelah jatuhnya Kepulauan Saipan ke tangan Sekutu dan mundurnya PM Tojo, PM Koiso mengucapkan Janji Kemerdekaan agar rakyat Indonesia tidak berbalik melawan Jepang.'
+        },
+        {
+          q: 'Apa hubungan erat antara pelatihan militer PETA dengan terbentuknya Tentara Nasional Indonesia (TNI) setelah kemerdekaan?',
+          options: [
+            'PETA melatih ribuan pemuda dalam strategi militer yang kelak menjadi tulang punggung dan perwira inti BKR/TKR/TNI',
+            'Seluruh persenjataan berat milik Angkatan Laut Jepang diserahkan secara sukarela kepada markas besar PETA',
+            'Perwira Jepang tetap memimpin komando tertinggi TNI hingga tahun 1949',
+            'PETA langsung berganti nama menjadi TNI tepat pada saat Janji Koiso diumumkan tahun 1944'
+          ],
+          correct: 0,
+          exp: 'Mantan perwira dan prajurit PETA (seperti Jenderal Sudirman, Suharto, Ahmad Yani, dan Supriyadi) menjadi kader inti pembentukan BKR, TKR, hingga TNI.'
+        },
+        {
+          q: 'Manakah pasangan dampak positif dan dampak negatif pendudukan Jepang di Indonesia yang paling tepat?',
+          options: [
+            'Positif: Bahasa Indonesia berkembang pesat sebagai bahasa resmi; Negatif: penderitaan berat akibat romusha dan kelaparan',
+            'Positif: Kebebasan mendirikan partai politik oposisi; Negatif: bahasa Belanda wajib digunakan di sekolah desa',
+            'Positif: Kesejahteraan petani meningkat tajam; Negatif: seluruh pemuda dilarang mengikuti latihan baris-berbaris',
+            'Positif: Perdagangan bebas antarnegara dibuka lebar; Negatif: sistem kasta feodal kolonial diperkuat kembali'
+          ],
+          correct: 0,
+          exp: 'Larangan bahasa Belanda membuat Bahasa Indonesia berkembang pesat sebagai bahasa pengantar resmi, namun eksploitasi ekonomi dan romusha menimbulkan kesengsaraan hebat.'
+        },
+        {
+          q: 'Kapan Jepang menyerah tanpa syarat kepada Sekutu dan apa dampak langsungnya bagi perjuangan kemerdekaan Indonesia?',
+          options: [
+            '14 Agustus 1945; terjadi kekosongan kekuasaan (vacuum of power) yang dimanfaatkan untuk proklamasi',
+            '6 Agustus 1945; pasukan Sekutu langsung mendarat di Jakarta pada hari yang sama',
+            '17 Agustus 1945; kaisar Jepang menyerahkan mandat kedaulatan kepada ketua PPKI',
+            '9 Agustus 1945; tentara PETA diperintahkan Jepang untuk mengambil alih pemerintahan sipil'
+          ],
+          correct: 0,
+          exp: 'Jepang menyerah kepada Sekutu pada 14 Agustus 1945 (diumumkan Kaisar Hirohito 15 Agustus), menciptakan vacuum of power karena Sekutu belum tiba di Indonesia.'
+        },
+        {
+          q: 'Siapakah tokoh yang dilantik sebagai Ketua BPUPKI (Dokuritsu Junbi Cosakai) pada Mei 1945?',
+          options: [
+            'Dr. K.R.T. Radjiman Wedyodiningrat',
+            'Ir. Soekarno',
+            'Mr. Muh. Yamin',
+            'Prof. Dr. Mr. Soepomo'
+          ],
+          correct: 0,
+          exp: 'Dr. K.R.T. Radjiman Wedyodiningrat menjabat sebagai Ketua (Kaico) BPUPKI, sedangkan Ir. Soekarno kelak menjabat Ketua PPKI.'
+        },
+        {
+          q: 'Kapan BPUPKI menyelenggarakan sidang resmi pertamanya yang membahas rumusan dasar negara Indonesia merdeka?',
+          options: [
+            '29 Mei – 1 Juni 1945',
+            '10 – 17 Juli 1945',
+            '7 – 14 Agustus 1945',
+            '29 April – 5 Mei 1945'
+          ],
+          correct: 0,
+          exp: 'Sidang pertama BPUPKI berlangsung pada 29 Mei – 1 Juni 1945 dengan agenda utama merumuskan dasar negara (termasuk pidato lahirnya Pancasila 1 Juni 1945).'
+        },
+        {
+          q: 'Mengapa Jepang membubarkan BPUPKI dan membentuk PPKI (Dokuritsu Junbi Inkai) pada 7 Agustus 1945?',
+          options: [
+            'Untuk mempercepat persiapan kemerdekaan dan menarik dukungan rakyat setelah Jepang terdesak hebat oleh Sekutu',
+            'Karena BPUPKI menolak merumuskan rancangan Undang-Undang Dasar bagi Indonesia',
+            'Atas perintah Panglima Sekutu agar seluruh anggota BPUPKI diganti oleh perwira Jepang',
+            'Karena masa jabatan anggota BPUPKI telah habis setelah 5 tahun bertugas'
+          ],
+          correct: 0,
+          exp: 'Setelah tugas menyusun rancangan UUD selesai dan posisi Jepang kian kritis, BPUPKI dibubarkan dan dibentuk PPKI pada 7 Agustus 1945 yang diketuai Ir. Soekarno.'
+        },
+        {
+          q: 'Dua kota di Jepang yang dijatuhi bom atom oleh Amerika Serikat/Sekutu pada tanggal 6 dan 9 Agustus 1945 adalah...',
+          options: [
+            'Hiroshima dan Nagasaki',
+            'Tokyo dan Yokohama',
+            'Osaka dan Kyoto',
+            'Nagoya dan Okinawa'
+          ],
+          correct: 0,
+          exp: 'Kota Hiroshima dibom atom pada 6 Agustus 1945 (Little Boy) dan Nagasaki pada 9 Agustus 1945 (Fat Man), yang melumpuhkan kekuatan Jepang.'
+        },
+        {
+          q: 'Apa tujuan utama golongan muda membawa Ir. Soekarno dan Drs. Moh. Hatta ke Rengasdengklok pada 16 Agustus 1945?',
+          options: [
+            'Menjauhkan mereka dari pengaruh Jepang dan mendesak agar kemerdekaan diproklamasikan secepatnya dengan kekuatan sendiri',
+            'Menyembunyikan Soekarno-Hatta dari kejaran pasukan Belanda yang sudah mengepung Jakarta',
+            'Melaksanakan sidang resmi PPKI di markas PETA Rengasdengklok bersama Laksamana Maeda',
+            'Menunggu kedatangan utusan Marsekal Terauchi dari Dalat, Vietnam untuk menyerahkan bendera'
+          ],
+          correct: 0,
+          exp: 'Golongan muda (Soekarni, Chaerul Saleh, Wikana, dll.) mengamankan Soekarno-Hatta ke Rengasdengklok agar proklamasi dilaksanakan di luar skenario PPKI/Jepang.'
+        },
+        {
+          q: 'Di kediaman siapakah naskah Proklamasi Kemerdekaan Indonesia dirumuskan pada malam 16–17 Agustus 1945?',
+          options: [
+            'Laksamana Tadashi Maeda di Jalan Imam Bonjol No. 1, Jakarta',
+            'Ir. Soekarno di Jalan Pegangsaan Timur No. 56, Jakarta',
+            'Letjen Hitoshi Imamura di Istana Gambir, Jakarta',
+            'Dr. Radjiman Wedyodiningrat di Gedung Chuo Sangi In'
+          ],
+          correct: 0,
+          exp: 'Laksamana Muda Tadashi Maeda (perwira tinggi Angkatan Laut Jepang yang bersimpati pada kemerdekaan Indonesia) menjamin keamanan perumusan naskah di rumahnya.'
+        },
+        {
+          q: 'Siapakah tokoh pemuda yang mengetik naskah Proklamasi Kemerdekaan Indonesia setelah konsep tulisan tangan Soekarno disepakati?',
+          options: [
+            'Sayuti Melik',
+            'Sukarni',
+            'B.M. Diah',
+            'Latief Hendraningrat'
+          ],
+          correct: 0,
+          exp: 'Sayuti Melik mengetik naskah Proklamasi dengan beberapa perubahan redaksional yang disepakati (seperti "tempoh" menjadi "tempo").'
+        },
+        {
+          q: 'Mengapa naskah Proklamasi ditandatangani oleh Soekarno-Hatta "atas nama bangsa Indonesia", bukan oleh seluruh anggota PPKI?',
+          options: [
+            'Usulan Sukarni agar proklamasi murni atas nama bangsa Indonesia dan bukan hadiah dari badan bentukan Jepang',
+            'Karena seluruh anggota PPKI lainnya sedang berada di Dalat, Vietnam bersama Marsekal Terauchi',
+            'Karena kertas naskah ketikan Sayuti Melik tidak cukup menampung tanda tangan semua hadirin',
+            'Atas permintaan Laksamana Maeda agar hanya dua orang perwakilan yang menandatangani dokumen'
+          ],
+          correct: 0,
+          exp: 'Sukarni mengusulkan agar naskah cukup ditandatangani Soekarno-Hatta atas nama bangsa Indonesia supaya dunia tahu kemerdekaan bukan pemberian PPKI bentukan Jepang.'
+        }
+      ]
+    };
+
+    /*************************************************************************
+     * WEB AUDIO API SOUND GENERATOR (TANPA FILE EKSTERNAL)
+     *************************************************************************/
+    class SoundEffects {
+      constructor() {
+        this.enabled = true;
+        this.ctx = null;
+      }
+
+      initContext() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) {
+            this.ctx = new AudioCtx();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playTone(freq, duration = 0.12, type = 'sine', gainVal = 0.12, delay = 0) {
+        if (!this.enabled) return;
+        try {
+          this.initContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime + delay;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(gainVal, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + duration);
+        } catch (e) {
+          // Ignore audio context restrictions
+        }
+      }
+
+      diceTick() {
+        this.playTone(260 + Math.random() * 180, 0.05, 'triangle', 0.08);
+      }
+
+      stepMove() {
+        this.playTone(420, 0.07, 'sine', 0.1);
+      }
+
+      correctAnswer() {
+        this.playTone(523.25, 0.12, 'triangle', 0.14, 0);
+        this.playTone(659.25, 0.12, 'triangle', 0.14, 0.1);
+        this.playTone(783.99, 0.25, 'triangle', 0.16, 0.2);
+      }
+
+      wrongAnswer() {
+        this.playTone(300, 0.16, 'sawtooth', 0.12, 0);
+        this.playTone(220, 0.28, 'sawtooth', 0.12, 0.15);
+      }
+
+      thunder() {
+        if (!this.enabled) return;
+        try {
+          this.initContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const duration = 1.1;
+          const sampleRate = this.ctx.sampleRate;
+          const buffer = this.ctx.createBuffer(1, Math.floor(sampleRate * duration), sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < data.length; i++) {
+            const t = i / data.length;
+            data[i] = (Math.random() * 2 - 1) * Math.pow(1 - t, 2.4);
+          }
+          const src = this.ctx.createBufferSource();
+          src.buffer = buffer;
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(1400, now);
+          filter.frequency.exponentialRampToValueAtTime(160, now + duration);
+
+          const gain = this.ctx.createGain();
+          gain.gain.setValueAtTime(0.4, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+          src.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+          src.start(now);
+
+          this.playTone(95, 0.2, 'sawtooth', 0.18, 0);
+        } catch (e) {
+          // Ignore audio restrictions
+        }
+      }
+
+      climbLadder() {
+        [392, 440, 493.88, 587.33, 659.25, 783.99].forEach((f, i) => {
+          this.playTone(f, 0.11, 'triangle', 0.14, i * 0.07);
+        });
+      }
+
+      slideSnake() {
+        [620, 540, 460, 380, 300, 220].forEach((f, i) => {
+          this.playTone(f, 0.11, 'sawtooth', 0.1, i * 0.07);
+        });
+      }
+
+      snakeGulp() {
+        this.playTone(160, 0.28, 'sine', 0.22, 0);
+        this.playTone(95, 0.42, 'triangle', 0.18, 0.15);
+        this.playTone(60, 0.5, 'sine', 0.14, 0.3);
+      }
+
+      collisionKick() {
+        this.playTone(180, 0.15, 'square', 0.14, 0);
+        this.playTone(120, 0.25, 'sawtooth', 0.14, 0.12);
+      }
+
+      startGame() {
+        [392, 523.25, 659.25, 783.99].forEach((f, i) => {
+          this.playTone(f, 0.18, 'triangle', 0.13, i * 0.11);
+        });
+      }
+
+      victoryFanfare() {
+        const notes = [
+          { f: 523.25, d: 0.16, t: 0 },
+          { f: 523.25, d: 0.16, t: 0.18 },
+          { f: 523.25, d: 0.16, t: 0.36 },
+          { f: 659.25, d: 0.35, t: 0.54 },
+          { f: 587.33, d: 0.18, t: 0.92 },
+          { f: 659.25, d: 0.18, t: 1.12 },
+          { f: 783.99, d: 0.55, t: 1.32 }
+        ];
+        notes.forEach(n => this.playTone(n.f, n.d, 'triangle', 0.18, n.t));
+      }
+    }
+
+    const sfx = new SoundEffects();
+
+    /*************************************************************************
+     * STATE PERMAINAN
+     *************************************************************************/
+    const gameState = {
+      selectedPlayerCount: 2,
+      players: [],
+      currentPlayerIndex: 0,
+      roundNumber: 1,
+      isBusy: false,
+      lastDiceRoll: 1,
+      bonusRollPending: false,
+      showVisualLines: true,
+      decks: {
+        mudah: [],
+        sedang: [],
+        sulit: []
+      },
+      quizTimerInterval: null,
+      quizSecondsLeft: 30,
+      pendingQuizOutcome: null,
+      pendingEventCallback: null
+    };
+
+    /*************************************************************************
+     * UTILITAS PAPAN & ZONA
+     *************************************************************************/
+    function getZoneInfo(tileNum) {
+      if (tileNum <= 0) {
+        return { year: 'Start', levelKey: 'mudah', levelLabel: 'Markas Awal', cssClass: 'zone-1942' };
+      }
+      if (tileNum <= 12) {
+        return { year: '1942', levelKey: 'mudah', levelLabel: 'Mudah', cssClass: 'zone-1942' };
+      }
+      if (tileNum <= 25) {
+        return { year: '1943', levelKey: 'sedang', levelLabel: 'Sedang', cssClass: 'zone-1943' };
+      }
+      if (tileNum <= 37) {
+        return { year: '1944', levelKey: 'sedang', levelLabel: 'Sedang', cssClass: 'zone-1944' };
+      }
+      return { year: '1945', levelKey: 'sulit', levelLabel: 'Sulit', cssClass: 'zone-1945' };
+    }
+
+    // Pemetaan petak 1..50 ke baris (0=atas..4=bawah) & kolom (0=kiri..9=kanan)
+    function getTileGridPosition(tileNum) {
+      const zeroBased = tileNum - 1;
+      const rowFromBottom = Math.floor(zeroBased / 10); // 0..4
+      const visualRow = 4 - rowFromBottom; // 4..0
+      const posInRow = zeroBased % 10;
+      const visualCol = (rowFromBottom % 2 === 0) ? posInRow : (9 - posInRow);
+      return { visualRow, visualCol };
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    /*************************************************************************
+     * PEMBANGUNAN PAPAN 50 PETAK & SVG OVERLAY
+     *************************************************************************/
+    function buildBoardDOM() {
+      const boardGrid = document.getElementById('boardGrid');
+      boardGrid.innerHTML = '';
+
+      // Buat matriks 5 baris x 10 kolom dari atas (visualRow 0) ke bawah (visualRow 4)
+      const cells = [];
+      for (let t = 1; t <= 50; t++) {
+        const { visualRow, visualCol } = getTileGridPosition(t);
+        cells.push({ tileNum: t, visualRow, visualCol });
+      }
+
+      cells.sort((a, b) => {
+        if (a.visualRow !== b.visualRow) return a.visualRow - b.visualRow;
+        return a.visualCol - b.visualCol;
+      });
+
+      cells.forEach(({ tileNum }) => {
+        const zone = getZoneInfo(tileNum);
+        const tileEl = document.createElement('div');
+        tileEl.className = `tile ${zone.cssClass}`;
+        tileEl.id = `tile-${tileNum}`;
+        tileEl.dataset.tile = tileNum;
+
+        const isLadder = Boolean(LADDERS[tileNum]);
+        const isSnake = Boolean(SNAKES[tileNum]);
+
+        if (isLadder) tileEl.classList.add('tile-ladder');
+        if (isSnake) tileEl.classList.add('tile-snake');
+        if (tileNum === 1) tileEl.classList.add('tile-start');
+        if (tileNum === 50) tileEl.classList.add('tile-finish');
+
+        let centerHTML = '';
+        if (tileNum === 1) {
+          centerHTML = `
+            <span class="special-pill" style="background:#b45309;color:#fff;">🚩 START</span>
+            <div class="tile-desc-mini">1942: Jepang datang</div>
+          `;
+        } else if (tileNum === 50) {
+          centerHTML = `
+            <span class="special-pill" style="background:#fef08a;color:#7f1d1d;">🇮🇩 MERDEKA</span>
+            <div class="tile-desc-mini">Proklamasi 17 Agustus 1945</div>
+          `;
+        } else if (isLadder) {
+          const l = LADDERS[tileNum];
+          centerHTML = `
+            <span class="special-pill ladder-pill" title="${l.desc}">⬆️ ${l.to}</span>
+            <div class="tile-desc-mini">${l.shortLabel}</div>
+          `;
+        } else if (isSnake) {
+          const s = SNAKES[tileNum];
+          centerHTML = `
+            <span class="special-pill snake-pill" title="${s.desc}">⬇️ ${s.to}</span>
+            <div class="tile-desc-mini">${s.shortLabel}</div>
+          `;
+        }
+
+        tileEl.innerHTML = `
+          <div class="tile-top">
+            <span class="tile-num">${tileNum}</span>
+            <span class="tile-year-tag">${zone.year}</span>
+          </div>
+          <div class="tile-center-badge">${centerHTML}</div>
+          <div class="tile-pawns" id="pawns-on-${tileNum}"></div>
+        `;
+
+        if (isLadder || isSnake || tileNum === 1 || tileNum === 50) {
+          tileEl.addEventListener('click', () => showTileHistoricalInfo(tileNum));
+        }
+
+        boardGrid.appendChild(tileEl);
+      });
+
+      requestAnimationFrame(drawSnakesAndLaddersSVG);
+    }
+
+    function getTileCenterPercent(tileNum) {
+      const { visualRow, visualCol } = getTileGridPosition(tileNum);
+      const x = (visualCol + 0.5) * 10; // 0..100
+      const y = (visualRow + 0.5) * 20; // 0..100
+      return { x, y };
+    }
+
+    function drawSnakesAndLaddersSVG() {
+      const svg = document.getElementById('boardSvg');
+      svg.setAttribute('viewBox', '0 0 1000 540');
+
+      let html = `
+        <defs>
+          <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#15803d" />
+          </marker>
+          <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#b91c1c" />
+          </marker>
+        </defs>
+      `;
+
+      // Gambar Tangga (Hijau/Emas dengan anak tangga)
+      Object.entries(LADDERS).forEach(([fromStr, data]) => {
+        const from = Number(fromStr);
+        const to = data.to;
+        const p1 = getTileCenterPercent(from);
+        const p2 = getTileCenterPercent(to);
+
+        const x1 = p1.x * 10, y1 = p1.y * 5.4;
+        const x2 = p2.x * 10, y2 = p2.y * 5.4;
+
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const len = Math.hypot(dx, dy);
+        const nx = (-dy / len) * 7;
+        const ny = (dx / len) * 7;
+
+        // Anak tangga
+        const steps = Math.max(4, Math.floor(len / 28));
+        let rungs = '';
+        for (let i = 1; i < steps; i++) {
+          const t = i / steps;
+          const rx = x1 + dx * t;
+          const ry = y1 + dy * t;
+          rungs += `<line x1="${(rx - nx).toFixed(1)}" y1="${(ry - ny).toFixed(1)}" x2="${(rx + nx).toFixed(1)}" y2="${(ry + ny).toFixed(1)}" stroke="#15803d" stroke-width="2.6" stroke-linecap="round" opacity="0.72" />`;
+        }
+
+        html += `
+          <g class="svg-ladder">
+            <line x1="${(x1 - nx).toFixed(1)}" y1="${(y1 - ny).toFixed(1)}" x2="${(x2 - nx).toFixed(1)}" y2="${(y2 - ny).toFixed(1)}" stroke="#166534" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+            <line x1="${(x1 + nx).toFixed(1)}" y1="${(y1 + ny).toFixed(1)}" x2="${(x2 + nx).toFixed(1)}" y2="${(y2 + ny).toFixed(1)}" stroke="#166534" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+            ${rungs}
+          </g>
+        `;
+      });
+
+      // Gambar Ular (Kurva Bezier Merah)
+      Object.entries(SNAKES).forEach(([fromStr, data]) => {
+        const from = Number(fromStr);
+        const to = data.to;
+        const p1 = getTileCenterPercent(from);
+        const p2 = getTileCenterPercent(to);
+
+        const x1 = p1.x * 10, y1 = p1.y * 5.4;
+        const x2 = p2.x * 10, y2 = p2.y * 5.4;
+
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2;
+        const offset = 36;
+
+        const c1x = (x1 + midX) / 2 + offset;
+        const c1y = (y1 + midY) / 2 - offset * 0.4;
+        const c2x = (midX + x2) / 2 - offset;
+        const c2y = (midY + y2) / 2 + offset * 0.4;
+
+        html += `
+          <g class="svg-snake">
+            <path d="M ${x1} ${y1} Q ${c1x} ${c1y}, ${midX} ${midY} T ${x2} ${y2}"
+                  fill="none" stroke="#b91c1c" stroke-width="5" stroke-dasharray="8 4"
+                  stroke-linecap="round" opacity="0.72" marker-end="url(#arrowRed)" />
+            <circle cx="${x1}" cy="${y1}" r="6" fill="#991b1b" opacity="0.8" />
+          </g>
+        `;
+      });
+
+      svg.innerHTML = html;
+    }
+
+    function showTileHistoricalInfo(tileNum) {
+      if (gameState.isBusy) return;
+      if (LADDERS[tileNum]) {
+        const l = LADDERS[tileNum];
+        openEventModal('⬆️', 'Tangga Perjuangan Sejarah', `Petak ${tileNum} ➔ Naik ke Petak ${l.to}`, l.desc, '#dcfce7', null);
+      } else if (SNAKES[tileNum]) {
+        const s = SNAKES[tileNum];
+        openEventModal('⬇️', 'Ular Tantangan Sejarah', `Petak ${tileNum} ➔ Turun ke Petak ${s.to}`, s.desc, '#fee2e2', null);
+      } else if (tileNum === 1) {
+        openEventModal('🚩', 'Petak 1: Awal Pendudukan Jepang (1942)', 'Zona Tahun 1942', 'Pada 11 Januari 1942 tentara Jepang mendarat di Tarakan dan pada 8 Maret 1942 Belanda menyerah tanpa syarat di Kalijati, Subang.', '#fef3c7', null);
+      } else if (tileNum === 50) {
+        openEventModal('🇮🇩', 'Petak 50: Proklamasi Kemerdekaan RI', '17 Agustus 1945', 'Puncak perjuangan bangsa Indonesia! Ir. Soekarno dan Drs. Moh. Hatta memproklamasikan kemerdekaan Indonesia pada 17 Agustus 1945 di Jl. Pegangsaan Timur No. 56, Jakarta.', '#fee2e2', null);
+      }
+    }
+
+    /*************************************************************************
+     * SETUP PEMAIN & INISIALISASI GAME
+     *************************************************************************/
+    function renderSetupPlayersInputs() {
+      const container = document.getElementById('setupPlayersGrid');
+      container.innerHTML = '';
+
+      for (let i = 0; i < gameState.selectedPlayerCount; i++) {
+        const fig = FIGURES[i];
+        const existingName = gameState.players[i] ? gameState.players[i].name : fig.defaultName;
+
+        const card = document.createElement('div');
+        card.className = 'setup-player-card';
+        card.innerHTML = `
+          <div class="setup-figure-header">
+            <div class="mini-dot" style="background:${fig.color}; width:34px; height:34px; font-size:0.85rem;">
+              ${fig.badgeIcon}
+            </div>
+            <div>
+              <div style="font-weight:800; font-size:0.86rem; color:var(--ink-dark);">Pemain ${i + 1}: ${fig.defaultName}</div>
+              <div style="font-size:0.72rem; color:var(--ink-muted);">${fig.role}</div>
+            </div>
+          </div>
+          <label style="font-size:0.74rem; font-weight:700; color:var(--ink-muted);">Nama Pemain / Siswa:</label>
+          <input type="text" class="setup-input" id="setupNameInput-${i}" value="${existingName}" maxlength="22" placeholder="Nama Pemain ${i + 1}" />
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    function refillQuestionDeck(levelKey) {
+      const source = QUESTION_BANK[levelKey] || [];
+      const indices = source.map((_, idx) => idx);
+      // Fisher-Yates shuffle
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      gameState.decks[levelKey] = indices;
+    }
+
+    function drawQuestionForLevel(levelKey) {
+      if (!gameState.decks[levelKey] || gameState.decks[levelKey].length === 0) {
+        refillQuestionDeck(levelKey);
+      }
+      const qIndex = gameState.decks[levelKey].pop();
+      return QUESTION_BANK[levelKey][qIndex];
+    }
+
+    function startNewGame() {
+      sfx.initContext();
+      sfx.startGame();
+      const count = gameState.selectedPlayerCount;
+      gameState.players = [];
+
+      for (let i = 0; i < count; i++) {
+        const fig = FIGURES[i];
+        const inputEl = document.getElementById(`setupNameInput-${i}`);
+        const rawName = inputEl && inputEl.value.trim() ? inputEl.value.trim() : fig.defaultName;
+
+        gameState.players.push({
+          index: i,
+          name: rawName,
+          figureName: fig.defaultName,
+          role: fig.role,
+          color: fig.color,
+          short: fig.short,
+          icon: fig.badgeIcon,
+          position: 0, // Mulai di Markas Awal (Petak 0)
+          correctCount: 0,
+          wrongCount: 0,
+          laddersClimbed: 0,
+          snakesBitten: 0
+        });
+      }
+
+      gameState.currentPlayerIndex = 0;
+      gameState.roundNumber = 1;
+      gameState.isBusy = false;
+      gameState.bonusRollPending = false;
+
+      refillQuestionDeck('mudah');
+      refillQuestionDeck('sedang');
+      refillQuestionDeck('sulit');
+
+      document.getElementById('historyLogBox').innerHTML = '';
+      addHistoryLog('🇵🇱 Permainan dimulai! Semua pion bersiap di Markas Awal (Petak 0) menuju Proklamasi 17 Agustus 1945 (Petak 50).', 'special');
+
+      document.getElementById('setupModal').classList.remove('open');
+      document.getElementById('victoryModal').classList.remove('open');
+
+      renderPawnsOnBoard();
+      renderSidebarStatus();
+      setDiceFaces(1);
+
+      if (window.Board3D && window.Board3D.isAvailable()) {
+        window.Board3D.setPlayers(gameState.players, gameState.currentPlayerIndex);
+        if (document.body.classList.contains('view-3d')) {
+          window.Board3D.playIntro();
+        }
+      }
+    }
+
+    /*************************************************************************
+     * RENDER PION, SIDEBAR, DAN DADU VISUAL
+     *************************************************************************/
+    function renderPawnsOnBoard() {
+      // Kosongkan semua wadah pion di petak 1..50
+      for (let t = 1; t <= 50; t++) {
+        const container = document.getElementById(`pawns-on-${t}`);
+        if (container) container.innerHTML = '';
+        const tileEl = document.getElementById(`tile-${t}`);
+        if (tileEl) tileEl.classList.remove('tile-highlight');
+      }
+
+      const startBaseContainer = document.getElementById('startBasePawns');
+      startBaseContainer.innerHTML = '';
+
+      let anyAtZero = false;
+
+      gameState.players.forEach((p, idx) => {
+        const isCurrent = idx === gameState.currentPlayerIndex;
+        const token = document.createElement('div');
+        token.className = `pawn-token ${isCurrent ? 'active-turn-pawn' : ''}`;
+        token.style.backgroundColor = p.color;
+        token.title = `${p.name} (${p.figureName}) - Petak ${p.position}`;
+        token.textContent = p.short;
+
+        if (p.position <= 0) {
+          anyAtZero = true;
+          const wrap = document.createElement('div');
+          wrap.style.display = 'inline-flex';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '4px';
+          wrap.style.background = '#fff';
+          wrap.style.padding = '2px 7px 2px 3px';
+          wrap.style.borderRadius = '999px';
+          wrap.style.border = `1.5px solid ${p.color}`;
+          wrap.style.fontSize = '0.74rem';
+          wrap.style.fontWeight = '700';
+          wrap.appendChild(token);
+          const lbl = document.createElement('span');
+          lbl.textContent = p.name;
+          wrap.appendChild(lbl);
+          startBaseContainer.appendChild(wrap);
+        } else {
+          const tilePawnBox = document.getElementById(`pawns-on-${p.position}`);
+          if (tilePawnBox) tilePawnBox.appendChild(token);
+          if (isCurrent) {
+            const tileEl = document.getElementById(`tile-${p.position}`);
+            if (tileEl) tileEl.classList.add('tile-highlight');
+          }
+        }
+      });
+
+      if (!anyAtZero) {
+        startBaseContainer.innerHTML = `<span class="start-empty-note">Semua pejuang telah bergerak memasuki papan sejarah.</span>`;
+      }
+
+      syncBoard3D();
+    }
+
+    function syncBoard3D() {
+      if (window.Board3D && window.Board3D.isAvailable()) {
+        window.Board3D.sync(gameState.players, gameState.currentPlayerIndex);
+      }
+    }
+
+    function triggerLightning() {
+      const flash = document.getElementById('lightningFlash');
+      if (flash) {
+        flash.classList.remove('flash');
+        void flash.offsetWidth;
+        flash.classList.add('flash');
+      }
+      if (window.Board3D && window.Board3D.isAvailable()) {
+        window.Board3D.strikeLightning(gameState.currentPlayerIndex);
+      }
+    }
+
+    async function animateTraversal3D(player, fromTile, toTile, type) {
+      if (!window.Board3D || !window.Board3D.isAvailable()) return;
+      await window.Board3D.animateTraversal(player.index, fromTile, toTile, type);
+    }
+
+    function renderSidebarStatus() {
+      const current = gameState.players[gameState.currentPlayerIndex];
+      if (!current) return;
+
+      document.getElementById('turnCounterBadge').textContent = `Putaran ${gameState.roundNumber}`;
+
+      const avatar = document.getElementById('activeTurnAvatar');
+      avatar.style.backgroundColor = current.color;
+      avatar.textContent = current.icon;
+
+      document.getElementById('activePlayerName').textContent = current.name;
+      document.getElementById('activeFigureRole').textContent = `${current.figureName} • Petak ${current.position === 0 ? 'Start (0)' : current.position}`;
+
+      const bonusBanner = document.getElementById('bonusSixBanner');
+      if (gameState.bonusRollPending) {
+        bonusBanner.classList.add('visible');
+      } else {
+        bonusBanner.classList.remove('visible');
+      }
+
+      const listEl = document.getElementById('playersStandingsList');
+      listEl.innerHTML = '';
+
+      gameState.players.forEach((p, idx) => {
+        const zone = getZoneInfo(p.position);
+        const row = document.createElement('div');
+        row.className = `player-row ${idx === gameState.currentPlayerIndex ? 'is-active' : ''}`;
+        row.innerHTML = `
+          <div class="player-row-left">
+            <div class="mini-dot" style="background:${p.color};">${p.short}</div>
+            <div class="player-row-info">
+              <div class="player-row-name">${p.name}</div>
+              <div class="player-row-sub">${p.figureName} • ✅${p.correctCount} ❌${p.wrongCount}</div>
+            </div>
+          </div>
+          <div class="player-row-pos">
+            <span class="pos-badge">${p.position === 0 ? 'Start (0)' : `Petak ${p.position}`}</span>
+            <span class="pos-zone">${p.position === 0 ? 'Garis Mula' : `Zona ${zone.year}`}</span>
+          </div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    function setDiceFaces(val) {
+      const pipMap = {
+        1: [5],
+        2: [1, 9],
+        3: [1, 5, 9],
+        4: [1, 3, 7, 9],
+        5: [1, 3, 5, 7, 9],
+        6: [1, 3, 4, 6, 7, 9]
+      };
+      const activePips = pipMap[val] || [5];
+      document.querySelectorAll('#diceVisual .pip').forEach(el => {
+        const p = Number(el.dataset.pip);
+        el.classList.toggle('on', activePips.includes(p));
+        el.classList.toggle('red-pip', val === 1 && p === 5);
+      });
+    }
+
+    function addHistoryLog(text, type = 'normal') {
+      const box = document.getElementById('historyLogBox');
+      const item = document.createElement('div');
+      item.className = `log-item ${type === 'good' ? 'log-good' : type === 'bad' ? 'log-bad' : type === 'special' ? 'log-special' : ''}`;
+      item.innerHTML = text;
+      box.prepend(item);
+    }
+
+    /*************************************************************************
+     * MEKANIK PERGERAKAN PION & PANTULAN DI PETAK 50
+     *************************************************************************/
+    async function movePawnStepByStep(player, stepsDelta) {
+      if (stepsDelta === 0) return;
+
+      if (stepsDelta > 0) {
+        let dir = 1;
+        for (let s = 0; s < stepsDelta; s++) {
+          player.position += dir;
+          if (player.position === 50 && s < stepsDelta - 1) {
+            // Pantulan mundur jika masih ada sisa langkah setelah menyentuh 50
+            dir = -1;
+          }
+          sfx.stepMove();
+          renderPawnsOnBoard();
+          renderSidebarStatus();
+          await sleep(220);
+        }
+      } else {
+        const backSteps = Math.abs(stepsDelta);
+        for (let s = 0; s < backSteps; s++) {
+          player.position = Math.max(0, player.position - 1);
+          sfx.stepMove();
+          renderPawnsOnBoard();
+          renderSidebarStatus();
+          await sleep(220);
+        }
+      }
+    }
+
+    /*************************************************************************
+     * ALUR GILIRAN UTAMA: LEMPAR DADU -> SOAL -> TANGGA/ULAR -> TABRAKAN
+     *************************************************************************/
+    async function handleRollDiceClick() {
+      if (gameState.isBusy) return;
+      gameState.isBusy = true;
+
+      const btnRoll = document.getElementById('btnRollDice');
+      btnRoll.disabled = true;
+
+      const player = gameState.players[gameState.currentPlayerIndex];
+      const diceVisual = document.getElementById('diceVisual');
+      const statusText = document.getElementById('diceStatusText');
+
+      diceVisual.classList.add('rolling');
+      statusText.textContent = 'Mengocok dadu...';
+
+      for (let i = 0; i < 8; i++) {
+        const tempFace = Math.floor(Math.random() * 6) + 1;
+        setDiceFaces(tempFace);
+        sfx.diceTick();
+        await sleep(75);
+      }
+
+      diceVisual.classList.remove('rolling');
+      const diceValue = Math.floor(Math.random() * 6) + 1;
+      gameState.lastDiceRoll = diceValue;
+      setDiceFaces(diceValue);
+
+      if (diceValue === 6) {
+        gameState.bonusRollPending = true;
+        statusText.textContent = `Angka 6! Bonus lempar lagi!`;
+      } else {
+        gameState.bonusRollPending = false;
+        statusText.textContent = `Dadu menunjukkan angka ${diceValue}`;
+      }
+
+      const startPos = player.position;
+      await movePawnStepByStep(player, diceValue);
+
+      const bouncedNote = (startPos + diceValue > 50) ? ' (memantul dari petak 50)' : '';
+      addHistoryLog(`🎲 <strong>${player.name}</strong> melempar dadu angka <strong>${diceValue}</strong> dan melangkah ke petak <strong>${player.position}</strong>${bouncedNote}.`);
+
+      renderSidebarStatus();
+
+      // Cek apakah langsung tepat di Petak 50
+      if (player.position === 50) {
+        triggerVictory(player);
+        return;
+      }
+
+      // Munculkan Kartu Soal sesuai zona petak saat ini
+      await sleep(300);
+      openQuizModalForPlayer(player);
+    }
+
+    /*************************************************************************
+     * KARTU SOAL SEJARAH & TIMER 30 DETIK
+     *************************************************************************/
+    function openQuizModalForPlayer(player) {
+      const zone = getZoneInfo(player.position);
+      const rawQuestion = drawQuestionForLevel(zone.levelKey);
+
+      // Acak urutan 4 opsi jawaban agar tidak selalu A
+      const indexedOptions = rawQuestion.options.map((text, idx) => ({
+        text,
+        isCorrect: idx === rawQuestion.correct
+      }));
+
+      for (let i = indexedOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indexedOptions[i], indexedOptions[j]] = [indexedOptions[j], indexedOptions[i]];
+      }
+
+      const zoneBadge = document.getElementById('quizZoneBadge');
+      zoneBadge.textContent = `Zona ${zone.year} • Level ${zone.levelLabel}`;
+      if (zone.levelKey === 'mudah') {
+        zoneBadge.style.background = '#dcfce7';
+        zoneBadge.style.color = '#166534';
+      } else if (zone.levelKey === 'sedang') {
+        zoneBadge.style.background = '#fef3c7';
+        zoneBadge.style.color = '#92400e';
+      } else {
+        zoneBadge.style.background = '#fee2e2';
+        zoneBadge.style.color = '#991b1b';
+      }
+
+      document.getElementById('quizPlayerLabel').textContent = `Pertanyaan untuk: ${player.name} (${player.figureName}) di Petak ${player.position}`;
+      document.getElementById('quizQuestionText').textContent = rawQuestion.q;
+
+      const optionsList = document.getElementById('quizOptionsList');
+      optionsList.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      indexedOptions.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-option-btn';
+        btn.innerHTML = `
+          <span class="opt-letter">${letters[i]}</span>
+          <span>${opt.text}</span>
+        `;
+        btn.addEventListener('click', () => handleAnswerSelected(i, indexedOptions, rawQuestion.exp));
+        optionsList.appendChild(btn);
+      });
+
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      feedbackBox.className = 'quiz-feedback-box';
+      feedbackBox.innerHTML = '';
+
+      const btnContinue = document.getElementById('btnContinueAfterQuiz');
+      btnContinue.style.display = 'none';
+      gameState.pendingQuizOutcome = null;
+
+      // Mulai Timer 30 Detik
+      clearInterval(gameState.quizTimerInterval);
+      gameState.quizSecondsLeft = 30;
+      updateQuizTimerUI();
+
+      gameState.quizTimerInterval = setInterval(() => {
+        gameState.quizSecondsLeft--;
+        updateQuizTimerUI();
+        if (gameState.quizSecondsLeft <= 5 && gameState.quizSecondsLeft > 0) {
+          sfx.diceTick();
+        }
+        if (gameState.quizSecondsLeft <= 0) {
+          clearInterval(gameState.quizTimerInterval);
+          handleAnswerSelected(-1, indexedOptions, rawQuestion.exp);
+        }
+      }, 1000);
+
+      document.getElementById('quizModal').classList.add('open');
+    }
+
+    function updateQuizTimerUI() {
+      const secEl = document.getElementById('quizTimerSec');
+      const pillEl = document.getElementById('quizTimerPill');
+      const barEl = document.getElementById('quizTimerBar');
+
+      secEl.textContent = gameState.quizSecondsLeft;
+      const pct = Math.max(0, (gameState.quizSecondsLeft / 30) * 100);
+      barEl.style.width = `${pct}%`;
+
+      if (gameState.quizSecondsLeft <= 8) {
+        pillEl.classList.add('danger');
+      } else {
+        pillEl.classList.remove('danger');
+      }
+    }
+
+    function handleAnswerSelected(chosenIdx, indexedOptions, explanation) {
+      clearInterval(gameState.quizTimerInterval);
+
+      const buttons = document.querySelectorAll('#quizOptionsList .quiz-option-btn');
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (indexedOptions[idx].isCorrect) {
+          btn.classList.add('correct-choice');
+        } else if (idx === chosenIdx) {
+          btn.classList.add('wrong-choice');
+        }
+      });
+
+      const isTimeout = chosenIdx === -1;
+      const isCorrect = !isTimeout && indexedOptions[chosenIdx].isCorrect;
+
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      if (isCorrect) {
+        sfx.correctAnswer();
+        feedbackBox.className = 'quiz-feedback-box show good';
+        feedbackBox.innerHTML = `
+          <strong>✅ JAWABAN BENAR! (Bonus: Pion Maju 2 Kotak)</strong><br/>
+          <span style="font-size:0.83rem;">${explanation}</span>
+        `;
+      } else {
+        sfx.wrongAnswer();
+        const reason = isTimeout ? '⏰ WAKTU HABIS (30 Detik)!' : '❌ JAWABAN KURANG TEPAT!';
+        feedbackBox.className = 'quiz-feedback-box show bad';
+        feedbackBox.innerHTML = `
+          <strong>${reason} (Konsekuensi: Pion Mundur 1 Kotak)</strong><br/>
+          <span style="font-size:0.83rem;"><strong>Pembahasan:</strong> ${explanation}</span>
+        `;
+      }
+
+      gameState.pendingQuizOutcome = { isCorrect, isTimeout };
+
+      const btnContinue = document.getElementById('btnContinueAfterQuiz');
+      btnContinue.style.display = 'block';
+      btnContinue.focus();
+    }
+
+    async function resolvePostQuizMovement() {
+      const btnContinue = document.getElementById('btnContinueAfterQuiz');
+      btnContinue.style.display = 'none';
+
+      const player = gameState.players[gameState.currentPlayerIndex];
+      const outcome = gameState.pendingQuizOutcome;
+      if (!outcome) return;
+      gameState.pendingQuizOutcome = null;
+      document.getElementById('quizModal').classList.remove('open');
+      const positionBeforeQuizMove = player.position;
+
+      if (outcome && outcome.isCorrect) {
+        player.correctCount++;
+        const before = player.position;
+        await movePawnStepByStep(player, 2);
+        const bounceNote = (before + 2 > 50) ? ' (memantul dari petak 50)' : '';
+        addHistoryLog(`✅ <strong>${player.name}</strong> menjawab benar! Maju 2 kotak ke petak <strong>${player.position}</strong>${bounceNote}.`, 'good');
+      } else {
+        player.wrongCount++;
+        sfx.thunder();
+        triggerLightning();
+        await movePawnStepByStep(player, -1);
+        const reasonTxt = (outcome && outcome.isTimeout) ? 'kehabisan waktu' : 'menjawab salah';
+        const posLabel = player.position === 0 ? 'Start (petak 0)' : `petak ${player.position}`;
+        addHistoryLog(`❌ <strong>${player.name}</strong> ${reasonTxt}! Mundur 1 kotak ke <strong>${posLabel}</strong>.`, 'bad');
+      }
+
+      // Cek apakah mencapai petak 50 setelah bonus maju 2 kotak
+      if (player.position === 50) {
+        triggerVictory(player);
+        return;
+      }
+
+      // Tangga/ular hanya berlaku jika pion benar-benar maju (bukan saat mundur karena salah jawab)
+      const movedForward = player.position > positionBeforeQuizMove;
+
+      // Cek Tangga atau Ular di petak tempat pion mendarat
+      const currentTile = player.position;
+      if (movedForward && LADDERS[currentTile]) {
+        const ladder = LADDERS[currentTile];
+        player.laddersClimbed++;
+        sfx.climbLadder();
+        await new Promise(resolve => {
+          openEventModal(
+            '⬆️',
+            'Naik Tangga Perjuangan!',
+            `Petak ${currentTile} ➔ Naik ke Petak ${ladder.to}`,
+            ladder.desc,
+            '#dcfce7',
+            resolve
+          );
+        });
+        await animateTraversal3D(player, currentTile, ladder.to, 'ladder');
+        player.position = ladder.to;
+        renderPawnsOnBoard();
+        renderSidebarStatus();
+        addHistoryLog(`🪜 <strong>${player.name}</strong> mendarat di kaki tangga petak ${currentTile} (<em>${ladder.shortLabel}</em>) dan naik ke petak <strong>${ladder.to}</strong>!`, 'good');
+      } else if (movedForward && SNAKES[currentTile]) {
+        const snake = SNAKES[currentTile];
+        player.snakesBitten++;
+        sfx.slideSnake();
+        await new Promise(resolve => {
+          openEventModal(
+            '⬇️',
+            'Turun Ular Sejarah!',
+            `Petak ${currentTile} ➔ Turun ke Petak ${snake.to}`,
+            snake.desc,
+            '#fee2e2',
+            resolve
+          );
+        });
+        sfx.snakeGulp();
+        await animateTraversal3D(player, currentTile, snake.to, 'snake');
+        player.position = snake.to;
+        renderPawnsOnBoard();
+        renderSidebarStatus();
+        addHistoryLog(`🐍 <strong>${player.name}</strong> mendarat di kepala ular petak ${currentTile} (<em>${snake.shortLabel}</em>) dan turun ke petak <strong>${snake.to}</strong>!`, 'bad');
+      }
+
+      // Cek Tabrakan Pion Lawan (Petak 1–49)
+      if (player.position >= 1 && player.position <= 49) {
+        for (const other of gameState.players) {
+          if (other.index !== player.index && other.position === player.position) {
+            other.position = 0;
+            sfx.collisionKick();
+            renderPawnsOnBoard();
+            renderSidebarStatus();
+            addHistoryLog(`💥 Tabrakan di petak ${player.position}! Pion <strong>${other.name}</strong> tertendang kembali ke <strong>Start (Petak 0)</strong>!`, 'special');
+            await sleep(300);
+          }
+        }
+      }
+
+      // Lanjutkan Giliran (atau Bonus Dadu 6)
+      finishTurn();
+    }
+
+    function openEventModal(icon, title, routeText, descText, circleBg, onCloseCallback) {
+      const iconEl = document.getElementById('eventIconCircle');
+      iconEl.textContent = icon;
+      iconEl.style.backgroundColor = circleBg;
+
+      document.getElementById('eventModalTitle').textContent = title;
+      document.getElementById('eventModalRoute').textContent = routeText;
+      document.getElementById('eventModalDesc').textContent = descText;
+
+      gameState.pendingEventCallback = onCloseCallback;
+      document.getElementById('eventModal').classList.add('open');
+    }
+
+    function finishTurn() {
+      const current = gameState.players[gameState.currentPlayerIndex];
+      const btnRoll = document.getElementById('btnRollDice');
+      const statusText = document.getElementById('diceStatusText');
+
+      if (gameState.bonusRollPending) {
+        addHistoryLog(`🌟 Karena melempar angka 6, <strong>${current.name}</strong> mendapat giliran lempar dadu tambahan!`, 'special');
+        gameState.bonusRollPending = false;
+        statusText.textContent = `Giliran Bonus: ${current.name} lempar lagi!`;
+      } else {
+        gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+        if (gameState.currentPlayerIndex === 0) {
+          gameState.roundNumber++;
+        }
+        const nextPlayer = gameState.players[gameState.currentPlayerIndex];
+        statusText.textContent = `Giliran ${nextPlayer.name} melempar dadu`;
+      }
+
+      gameState.isBusy = false;
+      btnRoll.disabled = false;
+      renderPawnsOnBoard();
+      renderSidebarStatus();
+    }
+
+    /*************************************************************************
+     * MODAL KEMENANGAN (PETAK 50)
+     *************************************************************************/
+    function triggerVictory(winner) {
+      sfx.victoryFanfare();
+      addHistoryLog(`🏆 <strong>PROKLAMATOR! ${winner.name}</strong> berhasil mencapai Petak 50: <strong>Proklamasi 17 Agustus 1945</strong>!`, 'special');
+
+      document.getElementById('victoryTitle').textContent =
+        `PROKLAMATOR! ${winner.name} mencapai Proklamasi 17 Agustus 1945!`;
+
+      let statsHTML = `<div style="font-weight:800; margin-bottom:0.5rem; color:var(--crimson-dark);">📊 Ringkasan Perjuangan Pemain:</div>`;
+      gameState.players.forEach(p => {
+        statsHTML += `
+          <div style="display:flex; justify-content:space-between; padding:0.35rem 0; border-bottom:1px dashed #d5c19f;">
+            <span><strong>${p.name}</strong> (${p.figureName})</span>
+            <span>Petak ${p.position} • Soal Benar: ${p.correctCount} • Tangga: ${p.laddersClimbed} • Ular: ${p.snakesBitten}</span>
+          </div>
+        `;
+      });
+
+      document.getElementById('victoryStatsBox').innerHTML = statsHTML;
+      document.getElementById('victoryModal').classList.add('open');
+    }
+
+    /*************************************************************************
+     * DAFTAR PANDUAN TANGGA & ULAR
+     *************************************************************************/
+    function populateGuideModal() {
+      const laddersList = document.getElementById('guideLaddersList');
+      const snakesList = document.getElementById('guideSnakesList');
+      laddersList.innerHTML = '';
+      snakesList.innerHTML = '';
+
+      Object.entries(LADDERS).forEach(([from, data]) => {
+        const div = document.createElement('div');
+        div.className = 'guide-row ladder-row';
+        div.innerHTML = `
+          <span class="guide-route">Petak ${from} ➔ ${data.to}</span>
+          <span>${data.desc}</span>
+        `;
+        laddersList.appendChild(div);
+      });
+
+      Object.entries(SNAKES).forEach(([from, data]) => {
+        const div = document.createElement('div');
+        div.className = 'guide-row snake-row';
+        div.innerHTML = `
+          <span class="guide-route">Petak ${from} ➔ ${data.to}</span>
+          <span>${data.desc}</span>
+        `;
+        snakesList.appendChild(div);
+      });
+    }
+
+    /*************************************************************************
+     * EVENT LISTENERS & INISIALISASI DOM
+     *************************************************************************/
+    window.addEventListener('DOMContentLoaded', () => {
+      buildBoardDOM();
+      populateGuideModal();
+      renderSetupPlayersInputs();
+
+      // Pilihan Jumlah Pemain (2, 3, 4)
+      document.querySelectorAll('#playerCountSelector .count-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#playerCountSelector .count-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          gameState.selectedPlayerCount = Number(btn.dataset.count);
+          renderSetupPlayersInputs();
+        });
+      });
+
+      // Mulai Permainan
+      document.getElementById('btnStartGame').addEventListener('click', startNewGame);
+
+      // Tombol Lempar Dadu
+      document.getElementById('btnRollDice').addEventListener('click', handleRollDiceClick);
+
+      // Tombol Lanjutkan Setelah Menjawab Soal
+      document.getElementById('btnContinueAfterQuiz').addEventListener('click', resolvePostQuizMovement);
+
+      // Tutup Modal Peristiwa Tangga / Ular
+      document.getElementById('btnCloseEventModal').addEventListener('click', () => {
+        document.getElementById('eventModal').classList.remove('open');
+        if (typeof gameState.pendingEventCallback === 'function') {
+          const cb = gameState.pendingEventCallback;
+          gameState.pendingEventCallback = null;
+          cb();
+        }
+      });
+
+      // Toggle Jalur Visual SVG
+      const btnToggleLines = document.getElementById('btnToggleLines');
+      btnToggleLines.addEventListener('click', () => {
+        gameState.showVisualLines = !gameState.showVisualLines;
+        const svg = document.getElementById('boardSvg');
+        svg.classList.toggle('hidden-lines', !gameState.showVisualLines);
+        btnToggleLines.classList.toggle('active-toggle', gameState.showVisualLines);
+        btnToggleLines.innerHTML = `<span>🪜</span> Jalur Visual: ${gameState.showVisualLines ? 'ON' : 'OFF'}`;
+      });
+
+      // Toggle Suara Web Audio API
+      const btnToggleSound = document.getElementById('btnToggleSound');
+      btnToggleSound.addEventListener('click', () => {
+        sfx.enabled = !sfx.enabled;
+        btnToggleSound.innerHTML = `<span id="soundIcon">${sfx.enabled ? '🔊' : '🔇'}</span> Suara: ${sfx.enabled ? 'ON' : 'MUTE'}`;
+      });
+
+      // Buka/Tutup Panduan Sejarah Tangga & Ular
+      document.getElementById('btnOpenGuide').addEventListener('click', () => {
+        document.getElementById('guideModal').classList.add('open');
+      });
+      document.getElementById('btnCloseGuideTop').addEventListener('click', () => {
+        document.getElementById('guideModal').classList.remove('open');
+      });
+      document.getElementById('btnCloseGuideBottom').addEventListener('click', () => {
+        document.getElementById('guideModal').classList.remove('open');
+      });
+
+      // Buka Modal Setup / Ulangi Permainan
+      document.getElementById('btnOpenSetup').addEventListener('click', () => {
+        renderSetupPlayersInputs();
+        document.getElementById('setupModal').classList.add('open');
+      });
+
+      // Main Lagi dari Modal Kemenangan
+      document.getElementById('btnPlayAgainVictory').addEventListener('click', () => {
+        document.getElementById('victoryModal').classList.remove('open');
+        renderSetupPlayersInputs();
+        document.getElementById('setupModal').classList.add('open');
+      });
+
+      // Bersihkan Catatan Log
+      document.getElementById('btnClearLog').addEventListener('click', () => {
+        document.getElementById('historyLogBox').innerHTML = '';
+        addHistoryLog('Catatan log dibersihkan.', 'normal');
+      });
+
+      // Toggle Tampilan 3D / 2D
+      const btnToggle3d = document.getElementById('btnToggle3d');
+      const setView3D = (on) => {
+        document.body.classList.toggle('view-3d', on);
+        btnToggle3d.classList.toggle('active-toggle', on);
+        btnToggle3d.innerHTML = `<span>🧊</span> Tampilan: ${on ? '3D' : '2D'}`;
+        if (window.Board3D && window.Board3D.isAvailable()) {
+          window.Board3D.setVisible(on);
+          if (on) window.Board3D.setPlayers(gameState.players, gameState.currentPlayerIndex);
+        }
+      };
+      btnToggle3d.addEventListener('click', () => {
+        setView3D(!document.body.classList.contains('view-3d'));
+      });
+      setView3D(true);
+    });
+  </script>
+  <script type="module" src="./board3d.js"></script>
+</body>
+</html>
